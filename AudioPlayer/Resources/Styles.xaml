@@ -46,7 +46,11 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource HoveredPlayButtonColor}"/>
             </Trigger>
+            <DataTrigger Binding="{Binding IsPlaying}" Value="True">
+                <Setter Property="Background" Value="{StaticResource HoveredPlayButtonColor}"/>
+            </DataTrigger>
         </Style.Triggers>
+        
     </Style>
 
     <Style x:Key="NextPrevSongButtonStyle" TargetType="{x:Type Button}">

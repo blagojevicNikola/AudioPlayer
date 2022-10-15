@@ -23,9 +23,11 @@ namespace AudioPlayer
         private DispatcherTimer timer;
         private double _currentDuration = 0;
         private double _maximumDuration = 1;
+        private bool _isPlaying = false;
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public ObservableCollection<SongViewModel> Playlist { get; set; }
+        public bool IsPlaying { get { return _isPlaying; } set { _isPlaying = value; NotifyPropertyChanged("IsPlaying"); } }
         public string BeginTime { get { return _BeginTime; } set { _BeginTime = value; NotifyPropertyChanged("BeginTime"); } }
         public string EndTime { get { return _EndTime; } set { _EndTime = value; NotifyPropertyChanged("EndTime"); } }
         public double CurrentDuration { get { return _currentDuration; } set { _currentDuration = value; NotifyPropertyChanged("CurrentDuration"); } }
@@ -36,14 +38,16 @@ namespace AudioPlayer
             set { 
                 _songViewModel = value; 
                 NotifyPropertyChanged("SelectedSong");
-                if(_songViewModel!= null && _songViewModel.SongPath!=null)
+                if(value!=null)
                 {
-                    timer.Start();
+                    _service.Open(value.SongPath);
+                    loadTime();
+                    playSong();
                 }
             }
         }
         public ICommand AddSongCommand { get; set; }
-        public ICommand PlaySongCommand { get; set; }
+        public ICommand MainCommand { get; set; }
         public ICommand NextSongCommand { get; set; }
         public ICommand PrevSongCommand { get; set; }
         public MainWindowViewModel()
@@ -57,7 +61,7 @@ namespace AudioPlayer
             songs.Add(new SongViewModel(new Song("putanja", "treca pjesma", "izvodjac")));
             Playlist = songs;
             AddSongCommand = new RelayCommand(addSong);
-            PlaySongCommand = new RelayCommand(() => { });
+            MainCommand = new RelayCommand(()=>pauseResumeSong());
             NextSongCommand = new RelayCommand(() => { });
             PrevSongCommand = new RelayCommand(() => { });
         }
@@ -72,9 +76,6 @@ namespace AudioPlayer
                 SongViewModel svm = new SongViewModel(s);
                 svm.SelectCommand = new RelayCommand(() => {
                     SelectedSong = svm;
-                    _service.Open(svm.SongPath);
-                    loadTime();
-                    playSong();
                 });
                 Playlist.Add(svm); 
                 win.Close(); 
@@ -93,17 +94,39 @@ namespace AudioPlayer
             CurrentDuration = 0;
             MaximumDuration = _service.GetFullDuration().TotalSeconds;
             EndTime = _service.GetFullDuration().Minutes.ToString().PadLeft(2, '0') + ":" + _service.GetFullDuration().Seconds.ToString().PadLeft(2, '0');
-
         }
 
         private void updateTime()
         {
-            CurrentDuration = _service.GetPosition().TotalSeconds;
+            CurrentDuration +=1;
+            string timeTemp = _service.GetPosition().ToString("mm\\:ss");
+            BeginTime = timeTemp;
         }
 
         private void playSong()
         {
+            IsPlaying = true;
             _service.Play();
+            timer.Start();
+        }
+
+        private void pauseSong()
+        {
+            IsPlaying = false;
+            _service.Pause();
+            timer.Stop();
+        }
+
+        private void pauseResumeSong()
+        {
+            if(IsPlaying)
+            {  
+                pauseSong();
+            }
+            else
+            {
+                playSong();
+            }
         }
 
     }

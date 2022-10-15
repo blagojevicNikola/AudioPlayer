@@ -108,6 +108,7 @@
 
                     <Button HorizontalAlignment="Center"
                             Grid.Row="2"
+                            Command="{Binding MainCommand}"
                         Style="{StaticResource PlaySongButtonStyle}">
                         <fa:ImageAwesome Icon="Play" Height="30" Width="30" Foreground="White"
                                      HorizontalAlignment="Center"

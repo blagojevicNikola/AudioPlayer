@@ -40,10 +40,9 @@ namespace AudioPlayer
 
         public void Play()
         {
-            if (outputDevice.PlaybackState == PlaybackState.Playing)
+            if (outputDevice.PlaybackState == PlaybackState.Stopped)
             {
                 audioFile.Position = 0;
-
             }
             outputDevice.Play();
 
@@ -51,18 +50,25 @@ namespace AudioPlayer
 
         public void Stop()
         {
-            outputDevice.Stop();
+            if (outputDevice.PlaybackState != PlaybackState.Stopped)
+            {
+                outputDevice.Stop();
+            }
         }
 
         public void Pause()
         {
-            outputDevice.Pause();
+            if (outputDevice.PlaybackState != PlaybackState.Paused)
+            {
+                outputDevice.Pause();
+            }
         }
 
         public void Open(string songPath)
         {
             if(audioFile==null || audioFile.FileName!=songPath)
             {
+                outputDevice.Stop();
                 audioFile = new AudioFileReader(songPath);
                 outputDevice.Init(audioFile);
             }
