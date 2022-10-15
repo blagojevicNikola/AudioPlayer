@@ -39,13 +39,13 @@ namespace AudioPlayer
                 string[] data = openFileDialog.SafeFileName.Split("-");
                 if(data.Length==0 || data.Length==1)
                 {
-                    SongName = openFileDialog.SafeFileName;
+                    SongName = openFileDialog.SafeFileName.Trim();
                     PlayerName = "Unknown";
                 }
                 else
                 {
-                    SongName = data[0];
-                    PlayerName = data[1];
+                    SongName = data[0].Trim();
+                    PlayerName = data[1].Trim();
                 }
             }
         }

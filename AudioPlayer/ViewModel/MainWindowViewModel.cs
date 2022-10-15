@@ -1,4 +1,5 @@
 ﻿using AudioPlayer.View;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,7 @@ namespace AudioPlayer
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private MusicPlayerService _playerService;
+        private MusicPlayerService _service = new MusicPlayerService();
         private string _BeginTime = "--:--";
         private string _EndTime = "--:--";
         private SongViewModel? _songViewModel;
@@ -37,8 +38,6 @@ namespace AudioPlayer
                 NotifyPropertyChanged("SelectedSong");
                 if(_songViewModel!= null && _songViewModel.SongPath!=null)
                 {
-                    _playerService.Open(_songViewModel.SongPath);
-                    _playerService.Play();
                     timer.Start();
                 }
             }
@@ -49,8 +48,6 @@ namespace AudioPlayer
         public ICommand PrevSongCommand { get; set; }
         public MainWindowViewModel()
         {
-            _playerService = new MusicPlayerService();
-            _playerService.OnLoaded(loadTime);
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += (sender, a) => updateTime();
@@ -75,6 +72,9 @@ namespace AudioPlayer
                 SongViewModel svm = new SongViewModel(s);
                 svm.SelectCommand = new RelayCommand(() => {
                     SelectedSong = svm;
+                    _service.Open(svm.SongPath);
+                    loadTime();
+                    playSong();
                 });
                 Playlist.Add(svm); 
                 win.Close(); 
@@ -90,15 +90,20 @@ namespace AudioPlayer
         private void loadTime()
         {
             BeginTime = "00:00";
-            Duration dur = _playerService.GetFullDuration();
-            EndTime = dur.TimeSpan.Minutes.ToString().PadLeft(2,'0') + ":" + dur.TimeSpan.Seconds.ToString().PadLeft(2, '0');
             CurrentDuration = 0;
-            MaximumDuration = _playerService.GetFullDuration().TimeSpan.TotalSeconds;
+            MaximumDuration = _service.GetFullDuration().TotalSeconds;
+            EndTime = _service.GetFullDuration().Minutes.ToString().PadLeft(2, '0') + ":" + _service.GetFullDuration().Seconds.ToString().PadLeft(2, '0');
+
         }
 
         private void updateTime()
         {
-            CurrentDuration = _playerService.GetPosition().TotalSeconds;
+            CurrentDuration = _service.GetPosition().TotalSeconds;
+        }
+
+        private void playSong()
+        {
+            _service.Play();
         }
 
     }

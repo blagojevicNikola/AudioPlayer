@@ -25,3 +25,10 @@ C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\obj\Debug\net6.0-windows\Aud
 C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\obj\Debug\net6.0-windows\View\AddSongWindow.g.cs
 C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\obj\Debug\net6.0-windows\View\AddSongWindow.baml
+C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\bin\Debug\net6.0-windows\NAudio.dll
+C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\bin\Debug\net6.0-windows\NAudio.Asio.dll
+C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\bin\Debug\net6.0-windows\NAudio.Core.dll
+C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\bin\Debug\net6.0-windows\NAudio.Midi.dll
+C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\bin\Debug\net6.0-windows\NAudio.Wasapi.dll
+C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\bin\Debug\net6.0-windows\NAudio.WinForms.dll
+C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\bin\Debug\net6.0-windows\NAudio.WinMM.dll

@@ -47,6 +47,10 @@
             "FontAwesome.WPF": {
               "target": "Package",
               "version": "[4.7.0.9, )"
+            },
+            "NAudio": {
+              "target": "Package",
+              "version": "[2.1.0, )"
             }
           },
           "imports": [

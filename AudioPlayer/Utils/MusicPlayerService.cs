@@ -1,5 +1,7 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,54 +12,63 @@ namespace AudioPlayer
 {
     public class MusicPlayerService
     {
-        MediaPlayer _mediaPlayer;
-
+        private WaveOutEvent outputDevice;
+        private AudioFileReader? audioFile;
         public MusicPlayerService()
         {
-            _mediaPlayer = new MediaPlayer();
+            outputDevice = new WaveOutEvent();
         }
 
         public double GetVolume()
         {
-            return _mediaPlayer.Volume;
+            return outputDevice.Volume;
         }
 
         public TimeSpan GetPosition()
         {
-            return _mediaPlayer.Position;
+            if(audioFile == null)  
+                return TimeSpan.Zero;
+            return audioFile.CurrentTime;
         }
 
-        public Duration GetFullDuration()
+        public TimeSpan GetFullDuration()
         {
-            return _mediaPlayer.NaturalDuration;
+            if (audioFile == null)
+                return TimeSpan.Zero;
+            return audioFile.TotalTime;
         }
 
         public void Play()
         {
-            _mediaPlayer.Play();
+            if (outputDevice.PlaybackState == PlaybackState.Playing)
+            {
+                audioFile.Position = 0;
+
+            }
+            outputDevice.Play();
+
         }
 
         public void Stop()
         {
-            _mediaPlayer.Stop();
+            outputDevice.Stop();
         }
 
         public void Pause()
         {
-            _mediaPlayer.Pause();
+            outputDevice.Pause();
         }
 
         public void Open(string songPath)
         {
-            if(_mediaPlayer.Source==null || !_mediaPlayer.Source.AbsolutePath.Equals(songPath))
+            if(audioFile==null || audioFile.FileName!=songPath)
             {
-                _mediaPlayer.Open(new Uri(songPath));
+                audioFile = new AudioFileReader(songPath);
+                outputDevice.Init(audioFile);
             }
         }
 
-        public void OnLoaded(Action a)
-        {
-            _mediaPlayer.MediaOpened += (s, t) => a();
-        }
+
+
     }
 }
