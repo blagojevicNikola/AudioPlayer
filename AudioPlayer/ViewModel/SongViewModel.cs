@@ -12,6 +12,7 @@ namespace AudioPlayer
         public string SongPath { get; set; }
         public string SongName { get; set; }
         public string PlayerName { get; set; }
+        public string Title { get; set; }
         public bool IsSelected { get; set; }
         public ICommand SelectCommand { get; set; }
 
@@ -21,6 +22,7 @@ namespace AudioPlayer
             SongName = model.SongName;
             PlayerName = model.PlayerName;
             IsSelected = false;
+            Title = model.SongName + " - " + model.PlayerName;
         }
     }
 }

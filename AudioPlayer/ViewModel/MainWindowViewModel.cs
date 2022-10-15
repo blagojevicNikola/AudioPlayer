@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace AudioPlayer
 {
@@ -17,12 +18,31 @@ namespace AudioPlayer
         private MusicPlayerService _playerService;
         private string _BeginTime = "--:--";
         private string _EndTime = "--:--";
+        private SongViewModel? _songViewModel;
+        private DispatcherTimer timer;
+        private double _currentDuration = 0;
+        private double _maximumDuration = 1;
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public ObservableCollection<SongViewModel> Playlist { get; set; }
-        public string SelectedSongName { get; set; } = "";
         public string BeginTime { get { return _BeginTime; } set { _BeginTime = value; NotifyPropertyChanged("BeginTime"); } }
         public string EndTime { get { return _EndTime; } set { _EndTime = value; NotifyPropertyChanged("EndTime"); } }
+        public double CurrentDuration { get { return _currentDuration; } set { _currentDuration = value; NotifyPropertyChanged("CurrentDuration"); } }
+        public double MaximumDuration { get { return _maximumDuration; } set { _maximumDuration = value; NotifyPropertyChanged("MaximumDuration"); } }
+        public SongViewModel? SelectedSong
+        {
+            get { return _songViewModel; }
+            set { 
+                _songViewModel = value; 
+                NotifyPropertyChanged("SelectedSong");
+                if(_songViewModel!= null && _songViewModel.SongPath!=null)
+                {
+                    _playerService.Open(_songViewModel.SongPath);
+                    _playerService.Play();
+                    timer.Start();
+                }
+            }
+        }
         public ICommand AddSongCommand { get; set; }
         public ICommand PlaySongCommand { get; set; }
         public ICommand NextSongCommand { get; set; }
@@ -31,6 +51,9 @@ namespace AudioPlayer
         {
             _playerService = new MusicPlayerService();
             _playerService.OnLoaded(loadTime);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += (sender, a) => updateTime();
             ObservableCollection<SongViewModel> songs = new ObservableCollection<SongViewModel>();
             songs.Add(new SongViewModel(new Song("putanja", "prva pjesma", "izvodjac")));
             songs.Add(new SongViewModel(new Song("putanja", "druga pjesma", "izvodjac")));
@@ -51,10 +74,10 @@ namespace AudioPlayer
                 Song s = new Song(vm.SongPath, vm.SongName, vm.PlayerName);
                 SongViewModel svm = new SongViewModel(s);
                 svm.SelectCommand = new RelayCommand(() => {
-                    _playerService.Open(svm.SongPath);
-                    _playerService.Play();
+                    SelectedSong = svm;
                 });
-                Playlist.Add(svm); win.Close(); 
+                Playlist.Add(svm); 
+                win.Close(); 
             };
             win.Show();
         }
@@ -68,7 +91,14 @@ namespace AudioPlayer
         {
             BeginTime = "00:00";
             Duration dur = _playerService.GetFullDuration();
-            EndTime = dur.TimeSpan.Minutes.ToString().PadLeft(2,'0') + ":" + dur.TimeSpan.Seconds.ToString().PadLeft(2, '0'); 
+            EndTime = dur.TimeSpan.Minutes.ToString().PadLeft(2,'0') + ":" + dur.TimeSpan.Seconds.ToString().PadLeft(2, '0');
+            CurrentDuration = 0;
+            MaximumDuration = _playerService.GetFullDuration().TimeSpan.TotalSeconds;
+        }
+
+        private void updateTime()
+        {
+            CurrentDuration = _playerService.GetPosition().TotalSeconds;
         }
 
     }

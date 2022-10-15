@@ -212,7 +212,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RepeatButton">
-                    <Border  BorderThickness="1" BorderBrush="Black" Background="Black" Height="3"/>
+                    <Border  Background="{StaticResource MainYellowColor}" Height="3"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -224,7 +224,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RepeatButton">
-                    <Border SnapsToDevicePixels="True" Background="Green"  BorderThickness="1" BorderBrush="YellowGreen" Height="2"/>
+                    <Border SnapsToDevicePixels="True" Background="{StaticResource MainOrangeColor}" Height="2"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

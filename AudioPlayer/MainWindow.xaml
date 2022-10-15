@@ -45,7 +45,7 @@
                            FontWeight="Regular"
                            Foreground="{StaticResource TextColor}"
                            FontSize="34"
-                           Text="Izvodjac - Naziv pjesme"/>
+                           Text="{Binding SelectedSong.Title}"/>
             </Grid>
 
             <Grid Grid.Row="1"
@@ -59,6 +59,8 @@
 
                     <Slider Style="{StaticResource Horizontal_Slider}"
                             Grid.Row="0"
+                            Maximum="{Binding MaximumDuration}"
+                            Value="{Binding CurrentDuration}"
                             Margin="8,0,8,0"/>
 
                     <Grid Grid.Row="1">
