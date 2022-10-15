@@ -32,10 +32,11 @@ namespace AudioPlayer
         private void browseSong()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            if(openFileDialog.ShowDialog()==true)
+            openFileDialog.Filter = "mp3 (*.mp3)|*.mp3|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog()==true)
             {
                 SongPath = openFileDialog.FileName;
-                string[] data = openFileDialog.SafeFileName.Split("\\");
+                string[] data = openFileDialog.SafeFileName.Split("-");
                 if(data.Length==0 || data.Length==1)
                 {
                     SongName = openFileDialog.SafeFileName;
