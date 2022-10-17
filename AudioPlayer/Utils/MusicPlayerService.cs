@@ -1,6 +1,8 @@
 ﻿using NAudio.Wave;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -10,10 +12,15 @@ using System.Windows.Media;
 
 namespace AudioPlayer
 {
-    public class MusicPlayerService
+    public class MusicPlayerService:INotifyPropertyChanged
     {
         private WaveOutEvent outputDevice;
         private AudioFileReader? audioFile;
+        private Song? _selectedSong;
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public ObservableCollection<Song> List { get; set; } = new ObservableCollection<Song>();
+        public Song? SelectedSong { get { return _selectedSong; } set { _selectedSong = value; NotifyPropertyChanged("SelectedSong"); } }
         public MusicPlayerService()
         {
             outputDevice = new WaveOutEvent();
@@ -64,17 +71,39 @@ namespace AudioPlayer
             }
         }
 
-        public void Open(string songPath)
+        public void Open(Song song)
         {
-            if(audioFile==null || audioFile.FileName!=songPath)
+            if (audioFile != null && audioFile.FileName.Equals(song.SongPath))
             {
-                outputDevice.Stop();
-                audioFile = new AudioFileReader(songPath);
-                outputDevice.Init(audioFile);
+                return;
+            }
+
+            outputDevice.Stop();
+            audioFile = new AudioFileReader(song.SongPath);
+            outputDevice.Init(audioFile);
+        }
+
+        public void PlayNext()
+        {
+            if(SelectedSong==null)
+            {
+                return;
+            }
+            int temp = List.IndexOf(SelectedSong);
+            if(temp == -1)
+            {
+                return;
+            }
+            if(temp+1<=List.Count-1)
+            {
+                SelectedSong = List[temp+1];
             }
         }
 
-
+        private void NotifyPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
     }
 }

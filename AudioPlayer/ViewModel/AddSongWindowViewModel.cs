@@ -12,12 +12,12 @@ namespace AudioPlayer
 {
     public class AddSongWindowViewModel:INotifyPropertyChanged
     {
-        private string? _SongPath;
-        private string? _SongName;
-        private string? _PlayerName;
-        public string? SongPath { get { return _SongPath; } set { _SongPath = value; NotifyPropertyChanged("SongPath"); } }
-        public string? SongName { get { return _SongName; } set { _SongName = value; NotifyPropertyChanged("SongName"); } }
-        public string? PlayerName { get { return _PlayerName; } set { _PlayerName = value; NotifyPropertyChanged("PlayerName"); } }
+        private string _SongPath="";
+        private string _SongName="";
+        private string _PlayerName = "";
+        public string SongPath { get { return _SongPath; } set { _SongPath = value; NotifyPropertyChanged("SongPath"); } }
+        public string SongName { get { return _SongName; } set { _SongName = value; NotifyPropertyChanged("SongName"); } }
+        public string PlayerName { get { return _PlayerName; } set { _PlayerName = value; NotifyPropertyChanged("PlayerName"); } }
         public ICommand BrowseCommand { get; set; }
         public ICommand OkCommand { get; set; }
         public EventHandler? OnCloseRequest { get; set; }

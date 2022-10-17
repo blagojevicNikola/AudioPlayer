@@ -9,20 +9,12 @@ namespace AudioPlayer
 {
     public class SongViewModel
     {
-        public string SongPath { get; set; }
-        public string SongName { get; set; }
-        public string PlayerName { get; set; }
-        public string Title { get; set; }
-        public bool IsSelected { get; set; }
-        public ICommand SelectCommand { get; set; }
+        private Song _song;
+        public ICommand? SelectCommand { get; set; }
 
         public SongViewModel(Song model)
         {
-            SongPath = model.SongPath;
-            SongName = model.SongName;
-            PlayerName = model.PlayerName;
-            IsSelected = false;
-            Title = model.SongName + " - " + model.PlayerName;
+            _song = model;
         }
     }
 }
