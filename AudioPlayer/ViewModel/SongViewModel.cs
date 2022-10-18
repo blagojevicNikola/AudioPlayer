@@ -9,12 +9,11 @@ namespace AudioPlayer
 {
     public class SongViewModel
     {
-        private Song _song;
         public ICommand? SelectCommand { get; set; }
-
+        public Song SongModel { get; private set; }
         public SongViewModel(Song model)
         {
-            _song = model;
+            SongModel = model;
         }
     }
 }

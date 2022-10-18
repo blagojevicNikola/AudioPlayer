@@ -15,6 +15,8 @@ namespace AudioPlayer
         public string PlayerName { get; set; }
         public bool IsPlaying { get { return _isPlaying; } set { _isPlaying = value; NotifyPropertyChanged("IsPlaying"); } }
 
+        public event EventHandler SongOpened;
+
         public Song(string songPath, string songName, string playerName)
         {
             SongPath = songPath;

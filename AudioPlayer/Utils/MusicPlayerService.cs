@@ -1,4 +1,5 @@
-﻿using NAudio.Wave;
+﻿using NAudio.Utils;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,10 +18,33 @@ namespace AudioPlayer
         private WaveOutEvent outputDevice;
         private AudioFileReader? audioFile;
         private Song? _selectedSong;
+        private string _endTime = "00:00";
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public ObservableCollection<Song> List { get; set; } = new ObservableCollection<Song>();
         public Song? SelectedSong { get { return _selectedSong; } set { _selectedSong = value; NotifyPropertyChanged("SelectedSong"); } }
+        public float Volume { get { return outputDevice.Volume; } set { outputDevice.Volume = value; NotifyPropertyChanged("Volume"); } }
+        public string CurrentValueString { get {
+                if (audioFile is null)
+                {
+                    return "00:00";
+                }
+                return audioFile.CurrentTime.ToString("mm\\:ss");
+            } }
+        public string EndValueString { 
+            get
+            {
+                if (audioFile is null)
+                {
+                    return "00:00";
+                }
+                return _endTime;
+            }
+            set
+            {
+                _endTime = value;  
+            }
+        }
         public MusicPlayerService()
         {
             outputDevice = new WaveOutEvent();
@@ -33,26 +57,30 @@ namespace AudioPlayer
 
         public TimeSpan GetPosition()
         {
-            if(audioFile == null)  
+            if(audioFile is null)  
                 return TimeSpan.Zero;
             return audioFile.CurrentTime;
         }
 
         public TimeSpan GetFullDuration()
         {
-            if (audioFile == null)
+            if (audioFile is null)
                 return TimeSpan.Zero;
             return audioFile.TotalTime;
         }
 
         public void Play()
         {
+            if(audioFile is null || SelectedSong is null)
+            {
+                return;
+            }
             if (outputDevice.PlaybackState == PlaybackState.Stopped)
             {
                 audioFile.Position = 0;
             }
+            SelectedSong.IsPlaying = true;
             outputDevice.Play();
-
         }
 
         public void Stop()
@@ -77,15 +105,20 @@ namespace AudioPlayer
             {
                 return;
             }
-
+            if(SelectedSong is not null)
+            {
+                SelectedSong.IsPlaying = false;
+            }
+            SelectedSong = song;
             outputDevice.Stop();
             audioFile = new AudioFileReader(song.SongPath);
+            EndValueString = audioFile.TotalTime.ToString("mm\\:ss");
             outputDevice.Init(audioFile);
         }
 
         public void PlayNext()
         {
-            if(SelectedSong==null)
+            if(SelectedSong is null)
             {
                 return;
             }
@@ -96,7 +129,8 @@ namespace AudioPlayer
             }
             if(temp+1<=List.Count-1)
             {
-                SelectedSong = List[temp+1];
+                Open(List[temp + 1]);
+                Play();
             }
         }
 

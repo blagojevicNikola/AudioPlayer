@@ -142,7 +142,7 @@
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Text="{Binding SongName}"
+                                    <TextBlock Text="{Binding SongModel.SongName}"
                                                FontSize="18"
                                                FontWeight="Medium"
                                                TextWrapping="Wrap"
@@ -150,7 +150,7 @@
                                                Grid.Row="0"
                                                HorizontalAlignment="Left"
                                                VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding PlayerName}"
+                                    <TextBlock Text="{Binding SongModel.PlayerName}"
                                                FontSize="18"
                                                FontWeight="Light"
                                                TextWrapping="Wrap"
@@ -173,6 +173,9 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource SelectedSongColor}"/>
             </Trigger>
+            <DataTrigger Binding="{Binding SongModel.IsPlaying}" Value="true">
+                <Setter Property="Background" Value="{StaticResource SelectedSongColor}"/>
+            </DataTrigger>
         </Style.Triggers>
     </Style>
     
@@ -221,6 +224,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
 
     <Style x:Key="SliderRepeatButton1" TargetType="RepeatButton">
         <Setter Property="SnapsToDevicePixels" Value="true" />
@@ -233,6 +237,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+   
 
     <Style x:Key="SliderThumb" TargetType="Thumb">
         <Setter Property="SnapsToDevicePixels" Value="true" />
@@ -267,6 +273,7 @@
         </Grid>
     </ControlTemplate>
 
+
     <Style x:Key="Horizontal_Slider" TargetType="Slider">
         <Setter Property="Focusable" Value="False"/>
         <Setter Property="SnapsToDevicePixels" Value="true" />
@@ -280,5 +287,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+   
 
 </ResourceDictionary>

@@ -18,6 +18,8 @@ namespace AudioPlayer
     {
         private MusicPlayerService _service = new MusicPlayerService();
         public event PropertyChangedEventHandler? PropertyChanged;
+        public MusicPlayerService Service { get { return _service; } }
+        public ObservableCollection<SongViewModel> Songs { get; set; } = new ObservableCollection<SongViewModel>();
         public ICommand AddSongCommand { get; set; }
         public ICommand MainCommand { get; set; }
         public ICommand NextSongCommand { get; set; }
@@ -38,6 +40,9 @@ namespace AudioPlayer
             vm.OnCloseRequest += (a, b) => {
                 Song s = new Song(vm.SongPath, vm.SongName, vm.PlayerName);
                 SongViewModel svm = new SongViewModel(s);
+                svm.SelectCommand = new RelayCommand(() => { _service.Open(svm.SongModel); _service.Play(); });
+                Songs.Add(svm);
+                Service.List.Add(s);
                 win.Close(); 
             };
             win.Show();
