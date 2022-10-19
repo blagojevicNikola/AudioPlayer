@@ -44,8 +44,8 @@ namespace AudioPlayer
                 }
                 else
                 {
-                    SongName = data[0].Trim();
-                    PlayerName = data[1].Trim();
+                    PlayerName = data[0].Trim();
+                    SongName = data[1].Trim();
                 }
             }
         }

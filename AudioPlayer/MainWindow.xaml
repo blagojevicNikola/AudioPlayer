@@ -60,7 +60,7 @@
                            FontWeight="Regular"
                            Foreground="{StaticResource TextColor}"
                            FontSize="34"
-                           Text="{Binding Service.SelectedSong.SongName}"/>
+                           Text="{Binding Service.SelectedSong.SongTitle}"/>
             </Grid>
 
             <Grid Grid.Row="1"

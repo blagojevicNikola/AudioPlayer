@@ -18,13 +18,14 @@ namespace AudioPlayer
     public class MusicPlayerService:INotifyPropertyChanged
     {
         private WaveOutEvent outputDevice;
-        private AudioFileReader? audioFile;
+        private Mp3FileReader? audioFile;
         private Song? _selectedSong;
         private string _endTime = "00:00";
         private string _currentTime = "00:00";
         private double _currentValue = 0;
         private double _maximumValue = 0;
         private DispatcherTimer _timer;
+        private bool _isActive = false;
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public ObservableCollection<Song> List { get; set; } = new ObservableCollection<Song>();
@@ -48,12 +49,14 @@ namespace AudioPlayer
                 NotifyPropertyChanged("EndValueString");
             }
         }
+        public bool IsActive { get { return _isActive; } set { _isActive = value; NotifyPropertyChanged("IsActive"); } }
+
         public MusicPlayerService()
         {
             outputDevice = new WaveOutEvent();
             outputDevice.PlaybackStopped += (sender, args) => stopOnEvent();
             _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromSeconds(0.9);
+            _timer.Interval = TimeSpan.FromSeconds(0.2);
             _timer.Tick += (sender, a) => updateTimeAndSlider();
         }
 
@@ -90,6 +93,7 @@ namespace AudioPlayer
             SelectedSong.IsPlaying = true;
             _timer.Start();
             outputDevice.Play();
+            IsActive = true;
         }
 
         public void Stop()
@@ -98,6 +102,7 @@ namespace AudioPlayer
             {
                 _timer.Stop();
                 outputDevice.Stop();
+                IsActive = false;
             }
         }
 
@@ -107,12 +112,13 @@ namespace AudioPlayer
             {
                 _timer.Stop();
                 outputDevice.Pause();
+                IsActive = false;
             }
         }
 
         public void Open(Song song)
         {
-            if (audioFile != null && audioFile.FileName.Equals(song.SongPath))
+            if (audioFile != null)
             {
                 return;
             }
@@ -122,7 +128,7 @@ namespace AudioPlayer
             }
             SelectedSong = song;
             outputDevice.Stop();
-            audioFile = new AudioFileReader(song.SongPath);
+            audioFile = new Mp3FileReader(song.SongPath);
             EndValueString = audioFile.TotalTime.ToString("mm\\:ss");
             MaximumValue = audioFile.TotalTime.TotalSeconds;
             outputDevice.Init(audioFile);
@@ -146,10 +152,37 @@ namespace AudioPlayer
             }
         }
 
+        public void PlayPrevious()
+        {
+            if (SelectedSong is null)
+            {
+                return;
+            }
+            int temp = List.IndexOf(SelectedSong);
+            if (temp == -1)
+            {
+                return;
+            }
+            if (temp - 1 >= 0)
+            {
+                Open(List[temp - 1]);
+                Play();
+            }
+        }
+
+        public void DeleteSong(Song song)
+        {
+            if (SelectedSong == song)
+            {
+                this.Stop();
+            }
+            List.Remove(song);
+        }
+
         private void updateTimeAndSlider()
         {
             CurrentValueString = audioFile!.CurrentTime.ToString("mm\\:ss");
-            CurrentValue += 1;
+            CurrentValue = audioFile.CurrentTime.TotalSeconds;
         }
 
         private void stopOnEvent()

@@ -27,7 +27,7 @@ namespace AudioPlayer
         public MainWindowViewModel()
         {
             AddSongCommand = new RelayCommand(addSong);
-            MainCommand = new RelayCommand(() =>{});
+            MainCommand = new RelayCommand(pausePlay);
             NextSongCommand = new RelayCommand(() => { });
             PrevSongCommand = new RelayCommand(() => { });
         }
@@ -46,6 +46,19 @@ namespace AudioPlayer
                 win.Close(); 
             };
             win.Show();
+        }
+
+        private void pausePlay()
+        {
+            if(Service.IsActive)
+            {
+                Service.Pause();
+            }
+            else
+            {
+                Service.Play();
+            }
+
         }
 
         private void NotifyPropertyChanged(string name)
