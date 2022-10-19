@@ -88,7 +88,6 @@ namespace AudioPlayer
             if (outputDevice.PlaybackState == PlaybackState.Stopped)
             {
                 CurrentValue = 0;
-                audioFile.Position = 0;
             }
             SelectedSong.IsPlaying = true;
             _timer.Start();
@@ -118,17 +117,20 @@ namespace AudioPlayer
 
         public void Open(Song song)
         {
-            if (audioFile != null)
+            if (SelectedSong is not null)
             {
-                return;
-            }
-            if(SelectedSong is not null)
-            {
+                if(SelectedSong.SongPath.Equals(song.SongPath))
+                {
+                    return;
+                }
                 SelectedSong.IsPlaying = false;
             }
             SelectedSong = song;
             outputDevice.Stop();
+            _timer.Stop();
+            CurrentValue = 0;
             audioFile = new Mp3FileReader(song.SongPath);
+            CurrentValueString = "00:00";
             EndValueString = audioFile.TotalTime.ToString("mm\\:ss");
             MaximumValue = audioFile.TotalTime.TotalSeconds;
             outputDevice.Init(audioFile);
@@ -175,7 +177,10 @@ namespace AudioPlayer
             if (SelectedSong == song)
             {
                 this.Stop();
-                SelectedSong = null;    
+                SelectedSong = null;
+                EndValueString = "00:00";
+                CurrentValueString = "00:00";
+                CurrentValue = 0;
             }
             List.Remove(song);
         }
