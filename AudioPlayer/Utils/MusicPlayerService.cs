@@ -175,6 +175,7 @@ namespace AudioPlayer
             if (SelectedSong == song)
             {
                 this.Stop();
+                SelectedSong = null;    
             }
             List.Remove(song);
         }

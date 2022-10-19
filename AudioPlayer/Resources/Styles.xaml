@@ -189,6 +189,7 @@
                                 </Grid>
                                 <Button Grid.Column="2"
                                         Style="{StaticResource DeleteButtonStyle}"
+                                        Command="{Binding DeleteCommand}"
                                         VerticalAlignment="Top"
                                         Margin="3">
                                     <fa:ImageAwesome Icon="Times" Width="15" Height="15"/>

@@ -41,6 +41,7 @@ namespace AudioPlayer
                 Song s = new Song(vm.SongPath, vm.SongName, vm.PlayerName);
                 SongViewModel svm = new SongViewModel(s);
                 svm.SelectCommand = new RelayCommand(() => { _service.Open(svm.SongModel); _service.Play(); });
+                svm.DeleteCommand = new RelayCommand(() => { Service.DeleteSong(s); Songs.Remove(svm); });
                 Songs.Add(svm);
                 Service.List.Add(s);
                 win.Close(); 
