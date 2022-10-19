@@ -74,6 +74,8 @@
 
                     <Slider Style="{StaticResource Horizontal_Slider}"
                             Grid.Row="0"
+                            Value="{Binding Service.CurrentValue}"
+                            Maximum="{Binding Service.MaximumValue}"
                             Margin="8,0,8,0"/>
 
                     <Grid Grid.Row="1">

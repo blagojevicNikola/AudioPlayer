@@ -7,9 +7,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace AudioPlayer
 {
@@ -19,18 +21,18 @@ namespace AudioPlayer
         private AudioFileReader? audioFile;
         private Song? _selectedSong;
         private string _endTime = "00:00";
+        private string _currentTime = "00:00";
+        private double _currentValue = 0;
+        private double _maximumValue = 0;
+        private DispatcherTimer _timer;
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public ObservableCollection<Song> List { get; set; } = new ObservableCollection<Song>();
         public Song? SelectedSong { get { return _selectedSong; } set { _selectedSong = value; NotifyPropertyChanged("SelectedSong"); } }
         public float Volume { get { return outputDevice.Volume; } set { outputDevice.Volume = value; NotifyPropertyChanged("Volume"); } }
-        public string CurrentValueString { get {
-                if (audioFile is null)
-                {
-                    return "00:00";
-                }
-                return audioFile.CurrentTime.ToString("mm\\:ss");
-            } }
+        public string CurrentValueString { get { return _currentTime; } set { _currentTime = value; NotifyPropertyChanged("CurrentValueString"); } }
+        public double CurrentValue { get { return _currentValue; } set { _currentValue = value; NotifyPropertyChanged("CurrentValue"); } }
+        public double MaximumValue { get { return _maximumValue; } set { _maximumValue = value; NotifyPropertyChanged("MaximumValue"); } }
         public string EndValueString { 
             get
             {
@@ -42,12 +44,17 @@ namespace AudioPlayer
             }
             set
             {
-                _endTime = value;  
+                _endTime = value;
+                NotifyPropertyChanged("EndValueString");
             }
         }
         public MusicPlayerService()
         {
             outputDevice = new WaveOutEvent();
+            outputDevice.PlaybackStopped += (sender, args) => stopOnEvent();
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(0.9);
+            _timer.Tick += (sender, a) => updateTimeAndSlider();
         }
 
         public double GetVolume()
@@ -77,9 +84,11 @@ namespace AudioPlayer
             }
             if (outputDevice.PlaybackState == PlaybackState.Stopped)
             {
+                CurrentValue = 0;
                 audioFile.Position = 0;
             }
             SelectedSong.IsPlaying = true;
+            _timer.Start();
             outputDevice.Play();
         }
 
@@ -87,6 +96,7 @@ namespace AudioPlayer
         {
             if (outputDevice.PlaybackState != PlaybackState.Stopped)
             {
+                _timer.Stop();
                 outputDevice.Stop();
             }
         }
@@ -95,6 +105,7 @@ namespace AudioPlayer
         {
             if (outputDevice.PlaybackState != PlaybackState.Paused)
             {
+                _timer.Stop();
                 outputDevice.Pause();
             }
         }
@@ -113,6 +124,7 @@ namespace AudioPlayer
             outputDevice.Stop();
             audioFile = new AudioFileReader(song.SongPath);
             EndValueString = audioFile.TotalTime.ToString("mm\\:ss");
+            MaximumValue = audioFile.TotalTime.TotalSeconds;
             outputDevice.Init(audioFile);
         }
 
@@ -132,6 +144,17 @@ namespace AudioPlayer
                 Open(List[temp + 1]);
                 Play();
             }
+        }
+
+        private void updateTimeAndSlider()
+        {
+            CurrentValueString = audioFile!.CurrentTime.ToString("mm\\:ss");
+            CurrentValue += 1;
+        }
+
+        private void stopOnEvent()
+        {
+            _timer.Stop();
         }
 
         private void NotifyPropertyChanged(string name)
