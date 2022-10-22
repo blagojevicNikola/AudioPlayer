@@ -40,7 +40,7 @@ namespace AudioPlayer
             vm.OnCloseRequest += (a, b) => {
                 Song s = new Song(vm.SongPath, vm.SongName, vm.PlayerName);
                 SongViewModel svm = new SongViewModel(s);
-                svm.SelectCommand = new RelayCommand(() => { _service.Open(svm.SongModel); _service.Play(); });
+                svm.SelectCommand = new RelayCommand(() => { Service.Open(svm.SongModel); Service.Play(); });
                 svm.DeleteCommand = new RelayCommand(() => { Service.DeleteSong(s); Songs.Remove(svm); });
                 Songs.Add(svm);
                 Service.List.Add(s);

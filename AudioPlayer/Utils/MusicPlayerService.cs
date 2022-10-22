@@ -34,6 +34,7 @@ namespace AudioPlayer
         public string CurrentValueString { get { return _currentTime; } set { _currentTime = value; NotifyPropertyChanged("CurrentValueString"); } }
         public double CurrentValue { get { return _currentValue; } set { _currentValue = value; NotifyPropertyChanged("CurrentValue"); } }
         public double MaximumValue { get { return _maximumValue; } set { _maximumValue = value; NotifyPropertyChanged("MaximumValue"); } }
+        public bool IsActive { get { return _isActive; } set { _isActive = value; NotifyPropertyChanged("IsActive"); } }
         public string EndValueString { 
             get
             {
@@ -49,7 +50,7 @@ namespace AudioPlayer
                 NotifyPropertyChanged("EndValueString");
             }
         }
-        public bool IsActive { get { return _isActive; } set { _isActive = value; NotifyPropertyChanged("IsActive"); } }
+        
 
         public MusicPlayerService()
         {
@@ -99,7 +100,7 @@ namespace AudioPlayer
         {
             if (outputDevice.PlaybackState != PlaybackState.Stopped)
             {
-                _timer.Stop();
+                //_timer.Stop();
                 outputDevice.Stop();
                 IsActive = false;
             }
@@ -193,7 +194,19 @@ namespace AudioPlayer
 
         private void stopOnEvent()
         {
-            _timer.Stop();
+            //Debug.WriteLine("Stop event on thread: {0}", Thread.CurrentThread.ManagedThreadId);
+            //if(audioFile != null)
+            //{
+            //    if(audioFile.CurrentTime==audioFile.TotalTime)
+            //    {
+            //        _timer.Stop();
+            //    }
+            //}
+            if(outputDevice.PlaybackState!=PlaybackState.Playing)
+            {
+                _timer.Stop();
+                PlayNext();
+            }
         }
 
         private void NotifyPropertyChanged(string name)
