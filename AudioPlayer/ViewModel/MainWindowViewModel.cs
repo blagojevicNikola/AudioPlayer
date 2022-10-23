@@ -28,8 +28,8 @@ namespace AudioPlayer
         {
             AddSongCommand = new RelayCommand(addSong);
             MainCommand = new RelayCommand(pausePlay);
-            NextSongCommand = new RelayCommand(() => { });
-            PrevSongCommand = new RelayCommand(() => { });
+            NextSongCommand = new RelayCommand(nextSong);
+            PrevSongCommand = new RelayCommand(previousSong);
         }
 
         private void addSong()
@@ -60,6 +60,16 @@ namespace AudioPlayer
                 Service.Play();
             }
 
+        }
+
+        private void nextSong()
+        {
+            Service.PlayNext();
+        }
+
+        private void previousSong()
+        {
+            Service.PlayPrevious();
         }
 
         private void NotifyPropertyChanged(string name)

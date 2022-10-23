@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AudioPlayer.View"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:iconsPack="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="AddSongWindow" Height="450" Width="500">
 
@@ -29,13 +31,15 @@
                    FontWeight="Medium"/>
             <StackPanel Orientation="Horizontal">
                 <TextBox Height="22"
+                         Style="{StaticResource SongInfoTextBox}"
                            Text="{Binding SongPath}"
                            Width="400"/>
-                <Button Height="20" 
-                        Width="20"
+                <Button Style="{StaticResource BrowseButtonStyle}"
                         Command="{Binding BrowseCommand}"
                         Margin="4,0,0,0"
-                        VerticalAlignment="Center"/>
+                        VerticalAlignment="Center">
+                    <iconsPack:Material Kind="Magnify" Width="13" Height="13"/>
+                </Button>
             </StackPanel>
         </StackPanel>
 
@@ -47,9 +51,10 @@
                    FontSize="21"
                    FontWeight="Medium"/>
             <TextBox Height="22"
-                       Width="400"
-                       Text="{Binding SongName}"
-                       HorizontalAlignment="Left"/>
+                     Style="{StaticResource SongInfoTextBox}"
+                     Width="400"
+                     Text="{Binding SongName}"
+                     HorizontalAlignment="Left"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2"
@@ -60,9 +65,10 @@
                    FontSize="21"
                    FontWeight="Medium"/>
             <TextBox Height="22"
-                       Width="400"
-                       Text="{Binding PlayerName}"
-                       HorizontalAlignment="Left"/>
+                     Width="400"
+                     Style="{StaticResource SongInfoTextBox}"
+                     Text="{Binding PlayerName}"
+                     HorizontalAlignment="Left"/>
         </StackPanel>
 
         <Button Style="{StaticResource OkButtonStyle}"

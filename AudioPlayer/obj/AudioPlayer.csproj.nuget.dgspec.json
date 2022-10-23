@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[4.7.0.9, )"
             },
+            "MahApps.Metro.IconPacks.Material": {
+              "target": "Package",
+              "version": "[4.11.0, )"
+            },
             "NAudio": {
               "target": "Package",
               "version": "[2.1.0, )"

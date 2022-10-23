@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "qbBoW80WCIgZu249qgv/nTbWuLs/MDD8OjlMArRLZ8MV4LiGY0ds8XDTTMcLbKVDZX5vOpf6IbOCFEhmDqMVrQ==",
+  "dgSpecHash": "iwVb7qeuEwX3rLowBgeSBByuVTWeaT/2WNtJAMdxdQRLOo4hhdr6sIqRTO7w6xO/deWWlhI0kdJiyqFzlVYJFA==",
   "success": true,
   "projectFilePath": "C:\\Users\\nikol\\source\\repos\\AudioPlayer\\AudioPlayer\\AudioPlayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nikol\\.nuget\\packages\\fontawesome.wpf\\4.7.0.9\\fontawesome.wpf.4.7.0.9.nupkg.sha512",
+    "C:\\Users\\nikol\\.nuget\\packages\\mahapps.metro.iconpacks.material\\4.11.0\\mahapps.metro.iconpacks.material.4.11.0.nupkg.sha512",
     "C:\\Users\\nikol\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\nikol\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\nikol\\.nuget\\packages\\naudio\\2.1.0\\naudio.2.1.0.nupkg.sha512",

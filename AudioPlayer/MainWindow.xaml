@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AudioPlayer"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:iconsPack="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="MainWindow" Height="711" Width="1000">
     <Window.DataContext>
@@ -29,8 +30,8 @@
 
             <Grid Grid.Row="0">
                 <Grid.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="{StaticResource GradientOragne}" Offset="0.1" />
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Color="{StaticResource GradientOragne}" Offset="-0.3" />
                         <GradientStop Color="{StaticResource GradientYellow}" Offset="1.2" />
                     </LinearGradientBrush>
                 </Grid.Background>
@@ -104,7 +105,8 @@
                                 Grid.Row="2"
                             HorizontalAlignment="Center">
                         <Button Style="{StaticResource NextPrevSongButtonStyle}"
-                            Margin="0,0,10,0">
+                                Margin="0,0,10,0"
+                                Command="{Binding PrevSongCommand}">
                             <fa:ImageAwesome Icon="AngleLeft" 
                                          Height="23" 
                                          Width="23" 
@@ -112,7 +114,8 @@
                                          Margin="0,0,8,0"/>
                         </Button>
                         <Button Style="{StaticResource NextPrevSongButtonStyle}"
-                            Margin="10,0,0,0">
+                                Margin="10,0,0,0"
+                                Command="{Binding NextSongCommand}">
                             <fa:ImageAwesome Icon="AngleRight" 
                                          Height="23" 
                                          Width="23" 
@@ -167,7 +170,7 @@
                             Margin="0,0,8,0"
                             Command="{Binding AddSongCommand}"
                             Grid.Row="1">
-                        <fa:ImageAwesome Icon="Plus" Height="20" Width="20" Foreground="White"/>
+                        <iconsPack:PackIconMaterial Kind="Plus" Width="15" Height="15" Foreground="White"/>
                     </Button>
                 </Grid>
 
