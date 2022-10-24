@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\App.xaml
-31252987501
+41916576859
 
-101983475120
-2121589890915
-MainWindow.xaml;Resources\Styles.xaml;View\AddSongWindow.xaml;
+11-996618948
+213572732153
+MainWindow.xaml;Resources\Styles.xaml;View\AddSongWindow.xaml;View\CustomSlider.xaml;
 
 False
 

@@ -34,3 +34,6 @@ C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\bin\Debug\net6.0-windows\NAu
 C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\bin\Debug\net6.0-windows\NAudio.WinMM.dll
 C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\bin\Debug\net6.0-windows\MahApps.Metro.IconPacks.Core.dll
 C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\bin\Debug\net6.0-windows\MahApps.Metro.IconPacks.Material.dll
+C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\bin\Debug\net6.0-windows\Microsoft.Xaml.Behaviors.dll
+C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\obj\Debug\net6.0-windows\View\CustomSlider.g.cs
+C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\obj\Debug\net6.0-windows\View\CustomSlider.baml

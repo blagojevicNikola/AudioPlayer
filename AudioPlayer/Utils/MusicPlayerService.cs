@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,7 +32,9 @@ namespace AudioPlayer
         public ObservableCollection<Song> List { get; set; } = new ObservableCollection<Song>();
         public Song? SelectedSong { get { return _selectedSong; } set { _selectedSong = value; NotifyPropertyChanged("SelectedSong"); } }
         public float Volume { get { return outputDevice.Volume; } set { outputDevice.Volume = value; NotifyPropertyChanged("Volume"); } }
+        [JsonIgnore]
         public string CurrentValueString { get { return _currentTime; } set { _currentTime = value; NotifyPropertyChanged("CurrentValueString"); } }
+        [JsonIgnore]
         public double CurrentValue { get { return _currentValue; } set { _currentValue = value; NotifyPropertyChanged("CurrentValue"); } }
         public double MaximumValue { get { return _maximumValue; } set { _maximumValue = value; NotifyPropertyChanged("MaximumValue"); } }
         public bool IsActive { get { return _isActive; } set { _isActive = value; NotifyPropertyChanged("IsActive"); } }
@@ -186,6 +189,23 @@ namespace AudioPlayer
             List.Remove(song);
         }
 
+        public void UpdatePosition()
+        {
+            if(outputDevice.PlaybackState!=PlaybackState.Stopped && audioFile!=null)
+            {
+                audioFile.Position = ((int)CurrentValue);
+            }
+        }
+
+        public void PuseUpdate()
+        {
+            _timer.Stop();
+        }
+
+        public void ResumeUpdate()
+        {
+            _timer.Start();
+        }
         private void updateTimeAndSlider()
         {
             CurrentValueString = audioFile!.CurrentTime.ToString("mm\\:ss");

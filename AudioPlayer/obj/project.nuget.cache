@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "iwVb7qeuEwX3rLowBgeSBByuVTWeaT/2WNtJAMdxdQRLOo4hhdr6sIqRTO7w6xO/deWWlhI0kdJiyqFzlVYJFA==",
+  "dgSpecHash": "1jHYGBBBxaHJTmDyb1XBibF6ezETNfwp0PtroXOq8EBHbCt1p/ijBuC5RjwgfewtEPyiJwNPD/x+0QXNtP4vsg==",
   "success": true,
   "projectFilePath": "C:\\Users\\nikol\\source\\repos\\AudioPlayer\\AudioPlayer\\AudioPlayer.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\nikol\\.nuget\\packages\\mahapps.metro.iconpacks.material\\4.11.0\\mahapps.metro.iconpacks.material.4.11.0.nupkg.sha512",
     "C:\\Users\\nikol\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\nikol\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\nikol\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
     "C:\\Users\\nikol\\.nuget\\packages\\naudio\\2.1.0\\naudio.2.1.0.nupkg.sha512",
     "C:\\Users\\nikol\\.nuget\\packages\\naudio.asio\\2.1.0\\naudio.asio.2.1.0.nupkg.sha512",
     "C:\\Users\\nikol\\.nuget\\packages\\naudio.core\\2.1.0\\naudio.core.2.1.0.nupkg.sha512",
