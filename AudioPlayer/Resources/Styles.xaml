@@ -5,9 +5,9 @@
                     xmlns:clr="clr-namespace:System;assembly=mscorlib">
 
     <SolidColorBrush x:Key="MainOrangeColor" Color="#C8B82F"/>
-    <SolidColorBrush x:Key="HoveredPlayButtonColor" Color="#637a5b"/>
+    <SolidColorBrush x:Key="HoveredPlayButtonColor" Color="#dbca35"/>
     <SolidColorBrush x:Key="MainYellowColor" Color="#C8A62F"/>
-    <SolidColorBrush x:Key="HoveredNextPrevButtonColor" Color="#b2cfc2"/>
+    <SolidColorBrush x:Key="HoveredNextPrevButtonColor" Color="#dbb635"/>
     <SolidColorBrush x:Key="BottomNavigationBarColor" Color="#CED0CE"/>
     <SolidColorBrush x:Key="SideNavigationBarColor" Color="#3F403F"/>
     <SolidColorBrush x:Key="AddSongButtonHoveredColor" Color="#e8e8e8"/>
@@ -282,7 +282,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RepeatButton">
-                    <Border  Background="{StaticResource MainYellowColor}" Height="3"/>
+                    <Border  Background="{StaticResource MainOrangeColor}" Height="3"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -295,7 +295,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RepeatButton">
-                    <Border SnapsToDevicePixels="True" Background="{StaticResource MainOrangeColor}" Height="2"/>
+                    <Border SnapsToDevicePixels="True" Background="{StaticResource MainYellowColor}" Height="2"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

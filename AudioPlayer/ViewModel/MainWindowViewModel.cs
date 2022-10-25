@@ -141,6 +141,16 @@ namespace AudioPlayer
 
         }
 
+        private void shuffleSongs()
+        {
+            Service.ShuffleSongList();
+        }
+
+        private void stopService()
+        {
+            Service.Stop();
+        }
+
         private void NotifyPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

@@ -29,7 +29,7 @@ namespace AudioPlayer
         private bool _isActive = false;
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public ObservableCollection<Song> List { get; set; } = new ObservableCollection<Song>();
+        public List<Song> List { get; set; } = new List<Song>();
         public Song? SelectedSong { get { return _selectedSong; } set { _selectedSong = value; NotifyPropertyChanged("SelectedSong"); } }
         public float Volume { get { return outputDevice.Volume; } set { outputDevice.Volume = value; NotifyPropertyChanged("Volume"); } }
         [JsonIgnore]
@@ -205,6 +205,11 @@ namespace AudioPlayer
         public void ResumeUpdate()
         {
             _timer.Start();
+        }
+
+        public void ShuffleSongList()
+        {
+            List = List.OrderBy(s => Guid.NewGuid()).ToList();
         }
         private void updateTimeAndSlider()
         {
