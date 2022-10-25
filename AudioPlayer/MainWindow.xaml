@@ -31,8 +31,8 @@
             <Grid Grid.Row="0">
                 <Grid.Background>
                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                        <GradientStop Color="{StaticResource GradientOragne}" Offset="-0.3" />
-                        <GradientStop Color="{StaticResource GradientYellow}" Offset="1.2" />
+                        <GradientStop Color="{StaticResource GradientDark}" Offset="-0.3" />
+                        <GradientStop Color="{StaticResource GradientLight}" Offset="1.2" />
                     </LinearGradientBrush>
                 </Grid.Background>
                 <Grid.RowDefinitions>
@@ -43,10 +43,30 @@
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="40"/>
                     </Grid.ColumnDefinitions>
+
+                    <Border Width="340"
+                            Height="340"
+                            CornerRadius="40"
+                            Margin="40,0,0,0"
+                            Background="{StaticResource MainOrangeColor}">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="12"
+                                              ShadowDepth="9"
+                                              Opacity="0.25"/>
+                        </Border.Effect>
+                        <iconsPack:PackIconMaterial Kind="MusicNote" 
+                                                    Height="200" 
+                                                    Width="150" 
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{StaticResource MainYellowColor}"/>
+                    </Border>
+                    
                     <StackPanel Grid.Column="1"
                                 Orientation="Vertical"
+                                Margin="0,0,0,30"
                                 VerticalAlignment="Bottom">
                         <Slider 
                             Maximum="1.0"
@@ -59,7 +79,7 @@
                         <iconsPack:PackIconMaterial Kind="VolumeHigh" 
                                                     Height="20" 
                                                     Width="20" 
-                                                    Foreground="{StaticResource TextColor}"
+                                                    Foreground="{StaticResource SideNavigationBarColor}"
                                                     HorizontalAlignment="Center"/>
                     </StackPanel>
                     
@@ -69,7 +89,7 @@
                            HorizontalAlignment="Center"
                            Margin="5"
                            FontWeight="Regular"
-                           Foreground="{StaticResource TextColor}"
+                           Foreground="{StaticResource MainOrangeColor}"
                            FontSize="34"
                            Text="{Binding Service.SelectedSong.SongTitle}"/>
             </Grid>
@@ -132,7 +152,7 @@
                             <iconsPack:PackIconMaterial Kind="ChevronDoubleLeft" 
                                                         Width="40" 
                                                         Height="23" 
-                                                        Foreground="White"
+                                                        Foreground="{StaticResource TextColor}"
                                                         Margin="0,0,14,0"/>
                         </Button>
                         <Button Style="{StaticResource NextPrevSongButtonStyle}"
@@ -146,7 +166,7 @@
                             <iconsPack:PackIconMaterial Kind="ChevronDoubleRight" 
                                                         Width="40" 
                                                         Height="23" 
-                                                        Foreground="White"
+                                                        Foreground="{StaticResource TextColor}"
                                                         Margin="14,0,0,0"/>
                         </Button>
                     </StackPanel>
@@ -203,7 +223,7 @@
                             Margin="0,0,8,0"
                             Command="{Binding AddSongCommand}"
                             Grid.Row="1">
-                        <iconsPack:PackIconMaterial Kind="Plus" Width="15" Height="15" Foreground="White"/>
+                        <iconsPack:PackIconMaterial Kind="Plus" Width="15" Height="15" Foreground="{StaticResource MainOrangeColor}"/>
                     </Button>
                 </Grid>
                 <ScrollViewer Grid.Row="1"

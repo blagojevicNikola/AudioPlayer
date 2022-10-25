@@ -4,32 +4,32 @@
                     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                     xmlns:clr="clr-namespace:System;assembly=mscorlib">
 
-    <SolidColorBrush x:Key="MainOrangeColor" Color="#F09819"/>
-    <SolidColorBrush x:Key="HoveredPlayButtonColor" Color="#f7a836"/>
-    <SolidColorBrush x:Key="MainYellowColor" Color="#EDDE5D"/>
-    <SolidColorBrush x:Key="HoveredNextPrevButtonColor" Color="#f0e26e"/>
-    <SolidColorBrush x:Key="BottomNavigationBarColor" Color="#FFF6AA"/>
-    <SolidColorBrush x:Key="SideNavigationBarColor" Color="#FFF286"/>
-    <SolidColorBrush x:Key="AddSongButtonColor" Color="#F09819"/>
-    <SolidColorBrush x:Key="TextColor" Color="#6F5A3C"/>
+    <SolidColorBrush x:Key="MainOrangeColor" Color="#C8B82F"/>
+    <SolidColorBrush x:Key="HoveredPlayButtonColor" Color="#637a5b"/>
+    <SolidColorBrush x:Key="MainYellowColor" Color="#C8A62F"/>
+    <SolidColorBrush x:Key="HoveredNextPrevButtonColor" Color="#b2cfc2"/>
+    <SolidColorBrush x:Key="BottomNavigationBarColor" Color="#CED0CE"/>
+    <SolidColorBrush x:Key="SideNavigationBarColor" Color="#3F403F"/>
+    <SolidColorBrush x:Key="AddSongButtonHoveredColor" Color="#e8e8e8"/>
+    <SolidColorBrush x:Key="TextColor" Color="#DFDFDF"/>
     <SolidColorBrush x:Key="OkButtonColor" Color="#c9c9c9"/>
     <SolidColorBrush x:Key="OkButtonHoveredColor" Color="#dedede"/>
-    <SolidColorBrush x:Key="SelectedSongColor" Color="#FBE844"/>
-    <Color x:Key="GradientOragne">#F09819</Color>
-    <Color x:Key="GradientYellow">#EDDE5D</Color>
+    <SolidColorBrush x:Key="SelectedSongColor" Color="#747474"/>
+    <Color x:Key="GradientDark">#A2A1A1</Color>
+    <Color x:Key="GradientLight">#DFDFDF</Color>
     <iconsPack:PackIconMaterial x:Key="PlayIcon" Kind="Play" 
                                                     Width="30" 
                                                     Height="30" 
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
-                                                    Foreground="White"
+                                                    Foreground="{StaticResource TextColor}"
                                                     Margin="5,0,0,0"/>
     <iconsPack:PackIconMaterial x:Key="PauseIcon" Kind="Pause" 
                                                     Width="30" 
                                                     Height="30" 
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
-                                                    Foreground="White"
+                                                    Foreground="{StaticResource TextColor}"
                                                     Margin="0,0,0,0"/>
 
 
@@ -104,14 +104,14 @@
 
     <Style x:Key="AddSongButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Height" Value="27"/>
-        <Setter Property="Width" Value="47"/>
-        <Setter Property="Background" Value="{StaticResource AddSongButtonColor}"/>
+        <Setter Property="Width" Value="27"/>
+        <Setter Property="Background" Value="{StaticResource TextColor}"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
                     <Grid>
-                        <Border CornerRadius="13"
+                        <Border CornerRadius="50"
                                 Background="{TemplateBinding Button.Background}">
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="6"
@@ -127,7 +127,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource HoveredPlayButtonColor}"/>
+                <Setter Property="Background" Value="{StaticResource AddSongButtonHoveredColor}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -174,31 +174,42 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border Grid.Column="0"
-                                        Background="White"
+                                        Background="{StaticResource TextColor}"
                                         CornerRadius="50"
                                         Margin="8,0,8,0"
                                         Height="36"
                                         Width="36"
                                         HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"/>
-                                <Grid Grid.Column="1">
+                                        VerticalAlignment="Center">
+                                    <iconsPack:PackIconMaterial Kind="MusicNote" 
+                                                                Height="20" 
+                                                                Width="20" 
+                                                                HorizontalAlignment="Center" 
+                                                                VerticalAlignment="Center"
+                                                                Foreground="{StaticResource MainYellowColor}"/>
+                                </Border>
+                                <Grid Grid.Column="1" VerticalAlignment="Center">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Text="{Binding SongModel.SongName}"
-                                               FontSize="18"
+                                               FontSize="16"
                                                FontWeight="Medium"
-                                               TextWrapping="Wrap"
+                                               TextWrapping="NoWrap"
+                                               Foreground="{StaticResource MainYellowColor}"
                                                Padding="0"
+                                               Margin="0,0,0,2"
                                                Grid.Row="0"
                                                HorizontalAlignment="Left"
                                                VerticalAlignment="Center"/>
                                     <TextBlock Text="{Binding SongModel.PlayerName}"
-                                               FontSize="18"
+                                               FontSize="14"
                                                FontWeight="Light"
-                                               TextWrapping="Wrap"
+                                               TextWrapping="NoWrap"
+                                               Foreground="{StaticResource TextColor}"
+                                               Margin="0,2,0,0"
                                                Padding="0"
                                                Grid.Row="1"
                                                HorizontalAlignment="Left"
@@ -210,7 +221,7 @@
                                         Command="{Binding DeleteCommand}"
                                         VerticalAlignment="Top"
                                         Margin="3">
-                                    <iconsPack:Material Kind="Close" Width="12" Height="12"/>
+                                    <iconsPack:Material Kind="Close" Width="7" Height="7"/>
                                 </Button>
                             </Grid>
                         </Border>
@@ -298,7 +309,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Thumb">
-                    <Ellipse Height="10" Width="10" Fill="Green"></Ellipse>
+                    <Ellipse Height="10" Width="10" Fill="{StaticResource MainOrangeColor}"></Ellipse>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
