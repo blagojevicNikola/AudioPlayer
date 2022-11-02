@@ -15,6 +15,7 @@
     <SolidColorBrush x:Key="OkButtonColor" Color="#c9c9c9"/>
     <SolidColorBrush x:Key="OkButtonHoveredColor" Color="#dedede"/>
     <SolidColorBrush x:Key="SelectedSongColor" Color="#747474"/>
+    <SolidColorBrush x:Key="OptionButtonHoveredColor" Color="#5c5c5c"/>
     <Color x:Key="GradientDark">#A2A1A1</Color>
     <Color x:Key="GradientLight">#DFDFDF</Color>
     <iconsPack:PackIconMaterial x:Key="PlayIcon" Kind="Play" 
@@ -253,7 +254,7 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Grid>
-                        <Border CornerRadius="13"
+                        <Border CornerRadius="20"
                                 Background="{TemplateBinding Button.Background}">
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="6"
@@ -417,7 +418,38 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource OkButtonHoveredColor}"/>
+                <Setter Property="Background" Value="{StaticResource OptionButtonHoveredColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="WindowButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="17"/>
+        <Setter Property="Width" Value="17"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid>
+                        <Border CornerRadius="50"
+                                Background="{TemplateBinding Button.Background}">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="4"
+                                                  ShadowDepth="2"
+                                                  Direction="315"
+                                                  Opacity="0.15"/>
+                            </Border.Effect>
+                        </Border>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Button.Content}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="IndianRed"/>
             </Trigger>
         </Style.Triggers>
     </Style>

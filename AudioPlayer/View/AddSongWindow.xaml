@@ -6,76 +6,119 @@
         xmlns:local="clr-namespace:AudioPlayer.View"
         xmlns:iconsPack="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="AddSongWindow" Height="450" Width="500">
+        Title="AddSongWindow" Height="450" Width="500"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        MouseDown="Window_MouseDown">
 
 
 
     <Window.Resources>
         <ResourceDictionary Source="/Resources/Styles.xaml"/>
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Border Background="{StaticResource SideNavigationBarColor}"
+            CornerRadius="15"
+            BorderBrush="{StaticResource MainYellowColor}"
+            BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="New song"
+                           Foreground="{StaticResource TextColor}"
+                           Margin="5"
+                           FontSize="15"/>
+                <StackPanel Grid.Column="1"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal"
+                            Margin="0">
+                    <Button Style="{StaticResource WindowButtonStyle}"
+                            Margin="5"
+                            Click="Button_Click">
+                        <iconsPack:PackIconMaterial Kind="Close" Height="11" Width="15" Foreground="{StaticResource TextColor}"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0"
+                <StackPanel Grid.Row="0"
                     Margin="9,30,9,0">
-            <Label Content="Song path"
+                    <Label Content="Song path"
                    Padding="0"
+                   Foreground="{StaticResource MainOrangeColor}"
                    Margin="0,0,0,4"
                    FontSize="21"
                    FontWeight="Medium"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Height="22"
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Height="22"
                          Style="{StaticResource SongInfoTextBox}"
                            Text="{Binding SongPath}"
                            Width="400"/>
-                <Button Style="{StaticResource BrowseButtonStyle}"
+                        <Button Style="{StaticResource BrowseButtonStyle}"
                         Command="{Binding BrowseCommand}"
                         Margin="4,0,0,0"
                         VerticalAlignment="Center">
-                    <iconsPack:Material Kind="Magnify" Width="13" Height="13"/>
-                </Button>
-            </StackPanel>
-        </StackPanel>
+                            <iconsPack:PackIconMaterial Foreground="{StaticResource MainYellowColor}" Kind="Magnify" Width="13" Height="13"/>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
 
-        <StackPanel Grid.Row="1"
+                <StackPanel Grid.Row="1"
                     Margin="9,30,9,0">
-            <Label Content="Song name"
+                    <Label Content="Song name"
+                   Foreground="{StaticResource MainOrangeColor}"
                    Padding="0"
                    Margin="0,0,0,4"
                    FontSize="21"
                    FontWeight="Medium"/>
-            <TextBox Height="22"
+                    <TextBox Height="22"
                      Style="{StaticResource SongInfoTextBox}"
                      Width="400"
                      Text="{Binding SongName}"
                      HorizontalAlignment="Left"/>
-        </StackPanel>
+                </StackPanel>
 
-        <StackPanel Grid.Row="2"
+                <StackPanel Grid.Row="2"
                     Margin="9,30,9,0">
-            <Label Content="Player name"
+                    <Label Content="Player name"
+                   Foreground="{StaticResource MainOrangeColor}"
                    Padding="0"
                    Margin="0,0,0,4"
                    FontSize="21"
                    FontWeight="Medium"/>
-            <TextBox Height="22"
+                    <TextBox Height="22"
                      Width="400"
                      Style="{StaticResource SongInfoTextBox}"
                      Text="{Binding PlayerName}"
                      HorizontalAlignment="Left"/>
-        </StackPanel>
+                </StackPanel>
 
-        <Button Style="{StaticResource OkButtonStyle}"
+                <Button Style="{StaticResource OkButtonStyle}"
                 Command="{Binding OkCommand}"
                 Content="OK"
+                Foreground="{StaticResource SideNavigationBarColor}"
                 Grid.Row="3"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Margin="10"/>
-    </Grid>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>
