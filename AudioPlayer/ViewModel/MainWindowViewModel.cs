@@ -21,10 +21,10 @@ namespace AudioPlayer
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private MusicPlayerService _service;
+        private ObservableCollection<SongViewModel> _songs = new ObservableCollection<SongViewModel>();
         public event PropertyChangedEventHandler? PropertyChanged;
         public MusicPlayerService Service { get { return _service; } private set { _service = value; } }
-        public ObservableCollection<SongViewModel> Songs { get; set; } = new ObservableCollection<SongViewModel>();
-        public bool IsBeingDragged { get; set; }
+        public ObservableCollection<SongViewModel> Songs { get { return _songs; } set { _songs = value; NotifyPropertyChanged("Songs"); } }
         public ICommand AddSongCommand { get; set; }
         public ICommand MainCommand { get; set; }
         public ICommand NextSongCommand { get; set; }
@@ -32,6 +32,7 @@ namespace AudioPlayer
         public ICommand UpdatePositionCommand { get; set; }
         public ICommand PauseUpdateCommand { get; set; }
         public ICommand ResumeUpdateCommand { get; set; }
+        public ICommand ShuffleSongsCommand { get; set; }
         public MainWindowViewModel()
         {
             AddSongCommand = new RelayCommand(addSong);
@@ -41,6 +42,7 @@ namespace AudioPlayer
             UpdatePositionCommand = new RelayCommand(updatePosition);
             PauseUpdateCommand = new RelayCommand(pauseUpdate);
             ResumeUpdateCommand = new RelayCommand(resumeUpdate);
+            ShuffleSongsCommand = new RelayCommand(shuffleSongs);
             //string currDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             List<string> fajlovi = Directory.GetFiles("C:\\Users\\nikol\\source\\repos\\AudioPlayer\\AudioPlayer\\bin\\Debug\\net6.0-windows").ToList();
             if (fajlovi.Any(s => s.EndsWith("plejer.json")))
@@ -144,6 +146,12 @@ namespace AudioPlayer
         private void shuffleSongs()
         {
             Service.ShuffleSongList();
+            ObservableCollection<SongViewModel> songs = new ObservableCollection<SongViewModel>();
+            foreach(Song s in Service.List)
+            {
+                songs.Add(new SongViewModel(s));    
+            }
+            Songs = songs;
         }
 
         private void stopService()

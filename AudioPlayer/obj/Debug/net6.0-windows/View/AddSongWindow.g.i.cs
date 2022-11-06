@@ -55,7 +55,7 @@ namespace AudioPlayer.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AudioPlayer;V1.0.0.0;component/view/addsongwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AudioPlayer;component/view/addsongwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\View\AddSongWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

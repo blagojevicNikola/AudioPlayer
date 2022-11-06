@@ -11,6 +11,7 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -30,6 +31,8 @@ namespace AudioPlayer
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public List<Song> List { get; set; } = new List<Song>();
+        public bool IsBeingDragged { get; set; }
+
         public Song? SelectedSong { get { return _selectedSong; } set { _selectedSong = value; NotifyPropertyChanged("SelectedSong"); } }
         public float Volume { get { return outputDevice.Volume; } set { outputDevice.Volume = value; NotifyPropertyChanged("Volume"); } }
         [JsonIgnore]
@@ -213,8 +216,11 @@ namespace AudioPlayer
         }
         private void updateTimeAndSlider()
         {
-            CurrentValueString = audioFile!.CurrentTime.ToString("mm\\:ss");
-            CurrentValue = audioFile.CurrentTime.TotalSeconds;
+            if(!IsBeingDragged)
+            {
+                CurrentValueString = audioFile!.CurrentTime.ToString("mm\\:ss");
+                CurrentValue = audioFile.CurrentTime.TotalSeconds;
+            }
         }
 
         private void stopOnEvent()
