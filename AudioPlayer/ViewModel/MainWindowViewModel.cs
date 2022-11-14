@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,8 +22,10 @@ namespace AudioPlayer
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private MusicPlayerService _service;
+        private DispatcherTimer serializationTimer = new();
         private ObservableCollection<SongViewModel> _songs = new ObservableCollection<SongViewModel>();
         public event PropertyChangedEventHandler? PropertyChanged;
+
         public MusicPlayerService Service { get { return _service; } private set { _service = value; } }
         public ObservableCollection<SongViewModel> Songs { get { return _songs; } set { _songs = value; NotifyPropertyChanged("Songs"); } }
         public ICommand AddSongCommand { get; set; }
@@ -79,6 +82,10 @@ namespace AudioPlayer
             {
                 _service = new MusicPlayerService();
             }
+
+            serializationTimer.Interval = TimeSpan.FromSeconds(5);
+            serializationTimer.Tick += (e,a)=>serialize();
+            serializationTimer.Start();
         }
 
         private void addSong()
@@ -118,10 +125,7 @@ namespace AudioPlayer
         }
         private void nextSong()
         {
-            var obj = JsonSerializer.Serialize(Service);
-            File.WriteAllText("plejer.json", obj);
             Service.PlayNext();
-            
         }
 
         private void previousSong()
@@ -157,6 +161,12 @@ namespace AudioPlayer
         private void stopService()
         {
             Service.Stop();
+        }
+
+        private void serialize()
+        {
+            var obj = JsonSerializer.Serialize(Service);
+            File.WriteAllText("plejer.json", obj);
         }
 
         private void NotifyPropertyChanged(string name)

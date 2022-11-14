@@ -17,7 +17,7 @@ using System.Windows.Threading;
 
 namespace AudioPlayer
 {
-    public class MusicPlayerService:INotifyPropertyChanged
+    public class MusicPlayerService : INotifyPropertyChanged
     {
         private WaveOutEvent outputDevice;
         private Mp3FileReader? audioFile;
