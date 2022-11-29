@@ -102,6 +102,18 @@ namespace AudioPlayer
             IsActive = true;
         }
 
+        public void Resume()
+        {
+            if (audioFile is null || SelectedSong is null)
+            {
+                return;
+            }
+            SelectedSong.IsPlaying = true;
+            _timer.Start();
+            outputDevice.Play();
+            IsActive = true;
+        }
+
         public void Stop()
         {
             if (outputDevice.PlaybackState != PlaybackState.Stopped)
@@ -194,9 +206,9 @@ namespace AudioPlayer
 
         public void UpdatePosition()
         {
-            if(outputDevice.PlaybackState!=PlaybackState.Stopped && audioFile!=null)
+            if(audioFile!=null)
             {
-                audioFile.Position = ((int)CurrentValue);
+                audioFile.CurrentTime = TimeSpan.FromSeconds(CurrentValue);
             }
         }
 

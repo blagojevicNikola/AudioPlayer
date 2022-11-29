@@ -36,6 +36,8 @@ namespace AudioPlayer
         public ICommand PauseUpdateCommand { get; set; }
         public ICommand ResumeUpdateCommand { get; set; }
         public ICommand ShuffleSongsCommand { get; set; }
+        public ICommand MouseDownCommand { get; set; }
+        public ICommand MouseUpCommand { get; set; }
         public MainWindowViewModel()
         {
             AddSongCommand = new RelayCommand(addSong);
@@ -46,6 +48,8 @@ namespace AudioPlayer
             PauseUpdateCommand = new RelayCommand(pauseUpdate);
             ResumeUpdateCommand = new RelayCommand(resumeUpdate);
             ShuffleSongsCommand = new RelayCommand(shuffleSongs);
+            MouseDownCommand = new RelayCommand(mouseDown);
+            MouseUpCommand = new RelayCommand(mouseUp);
             //string currDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             List<string> fajlovi = Directory.GetFiles("C:\\Users\\nikol\\source\\repos\\AudioPlayer\\AudioPlayer\\bin\\Debug\\net6.0-windows").ToList();
             if (fajlovi.Any(s => s.EndsWith("plejer.json")))
@@ -167,6 +171,23 @@ namespace AudioPlayer
         {
             var obj = JsonSerializer.Serialize(Service);
             File.WriteAllText("plejer.json", obj);
+        }
+
+        private void mouseDown()
+        {
+            if(Service!=null)
+            {
+                Service.Pause();
+            }
+        }
+
+        private void mouseUp()
+        {
+            if(Service!=null)
+            {
+                Service.UpdatePosition();
+                Service.Resume();
+            }
         }
 
         private void NotifyPropertyChanged(string name)
