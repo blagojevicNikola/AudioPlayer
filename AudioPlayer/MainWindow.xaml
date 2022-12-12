@@ -71,6 +71,7 @@
                         <Slider 
                             Maximum="1.0"
                             Value="{Binding Service.Volume}"
+                            Style="{StaticResource Vertical_Slider}"
                             Margin="10"
                             Height="100"
                             VerticalAlignment="Bottom"
