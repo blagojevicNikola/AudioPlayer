@@ -226,7 +226,10 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Button Style="{StaticResource SongButtonStyle}"
-                                    Command="{Binding SelectCommand}"/>
+                                    Command="{Binding 
+                                    RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, 
+                                    Path=DataContext.SelectSongCommand}"
+                                    CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

@@ -195,7 +195,7 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Text="{Binding SongModel.SongName}"
+                                    <TextBlock Text="{Binding SongName}"
                                                FontSize="16"
                                                FontWeight="Medium"
                                                TextWrapping="NoWrap"
@@ -205,7 +205,7 @@
                                                Grid.Row="0"
                                                HorizontalAlignment="Left"
                                                VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding SongModel.PlayerName}"
+                                    <TextBlock Text="{Binding PlayerName}"
                                                FontSize="14"
                                                FontWeight="Light"
                                                TextWrapping="NoWrap"
@@ -219,7 +219,10 @@
                                 </Grid>
                                 <Button Grid.Column="2"
                                         Style="{StaticResource DeleteButtonStyle}"
-                                        Command="{Binding DeleteCommand}"
+                                        Command="{Binding 
+                                        RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, 
+                                        Path=DataContext.DeleteSongCommand}"
+                                        CommandParameter="{Binding}"
                                         VerticalAlignment="Top"
                                         Margin="3">
                                     <iconsPack:Material Kind="Close" Width="7" Height="7"/>
@@ -237,7 +240,7 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource SelectedSongColor}"/>
             </Trigger>
-            <DataTrigger Binding="{Binding SongModel.IsPlaying}" Value="true">
+            <DataTrigger Binding="{Binding IsPlaying}" Value="true">
                 <Setter Property="Background" Value="{StaticResource SelectedSongColor}"/>
             </DataTrigger>
         </Style.Triggers>

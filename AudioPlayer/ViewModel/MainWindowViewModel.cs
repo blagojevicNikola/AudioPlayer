@@ -23,11 +23,11 @@ namespace AudioPlayer
     {
         private MusicPlayerService _service;
         private DispatcherTimer serializationTimer = new();
-        private ObservableCollection<SongViewModel> _songs = new ObservableCollection<SongViewModel>();
+        private ObservableCollection<Song> _songs = new ObservableCollection<Song>();
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public MusicPlayerService Service { get { return _service; } private set { _service = value; } }
-        public ObservableCollection<SongViewModel> Songs { get { return _songs; } set { _songs = value; NotifyPropertyChanged("Songs"); } }
+        public ObservableCollection<Song> Songs { get { return _songs; } set { _songs = value; NotifyPropertyChanged("Songs"); } }
         public ICommand AddSongCommand { get; set; }
         public ICommand MainCommand { get; set; }
         public ICommand NextSongCommand { get; set; }
@@ -38,6 +38,8 @@ namespace AudioPlayer
         public ICommand ShuffleSongsCommand { get; set; }
         public ICommand MouseDownCommand { get; set; }
         public ICommand MouseUpCommand { get; set; }
+        public ICommand SelectSongCommand { get; set; }
+        public ICommand DeleteSongCommand { get; set; }
         public MainWindowViewModel()
         {
             AddSongCommand = new RelayCommand(addSong);
@@ -50,6 +52,8 @@ namespace AudioPlayer
             ShuffleSongsCommand = new RelayCommand(shuffleSongs);
             MouseDownCommand = new RelayCommand(mouseDown);
             MouseUpCommand = new RelayCommand(mouseUp);
+            SelectSongCommand = new ParameterRelayCommand<Song>(selectSong);
+            DeleteSongCommand = new ParameterRelayCommand<Song>(deleteSong);
             //string currDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             List<string> fajlovi = Directory.GetFiles("C:\\Users\\nikol\\source\\repos\\AudioPlayer\\AudioPlayer\\bin\\Debug\\net6.0-windows").ToList();
             if (fajlovi.Any(s => s.EndsWith("plejer.json")))
@@ -75,10 +79,7 @@ namespace AudioPlayer
                     _service = deserializedPlayer;
                     foreach (Song s in Service.List)
                     {
-                        SongViewModel svm = new SongViewModel(s);
-                        svm.SelectCommand = new RelayCommand(() => { Service.Open(svm.SongModel); Service.Play(); });
-                        svm.DeleteCommand = new RelayCommand(() => { Service.DeleteSong(s); Songs.Remove(svm); });
-                        Songs.Add(svm);
+                        Songs.Add(s);
                     }
                 }
             }
@@ -99,10 +100,7 @@ namespace AudioPlayer
             win.DataContext = vm;   
             vm.OnCloseRequest += (a, b) => {
                 Song s = new Song(vm.SongPath, vm.SongName, vm.PlayerName);
-                SongViewModel svm = new SongViewModel(s);
-                svm.SelectCommand = new RelayCommand(() => { Service.Open(svm.SongModel); Service.Play(); });
-                svm.DeleteCommand = new RelayCommand(() => { Service.DeleteSong(s); Songs.Remove(svm); });
-                Songs.Add(svm);
+                Songs.Add(s);
                 Service.List.Add(s);
                 win.Close(); 
             };
@@ -154,10 +152,10 @@ namespace AudioPlayer
         private void shuffleSongs()
         {
             Service.ShuffleSongList();
-            ObservableCollection<SongViewModel> songs = new ObservableCollection<SongViewModel>();
+            ObservableCollection<Song> songs = new ObservableCollection<Song>();
             foreach(Song s in Service.List)
             {
-                songs.Add(new SongViewModel(s));    
+                songs.Add(s);    
             }
             Songs = songs;
         }
@@ -188,6 +186,18 @@ namespace AudioPlayer
                 Service.UpdatePosition();
                 Service.Resume();
             }
+        }
+
+        private void selectSong(Song song)
+        {
+            Service.Open(song); 
+            Service.Play();
+        }
+
+        private void deleteSong(Song song)
+        {
+            Service.DeleteSong(song); 
+            Songs.Remove(song);
         }
 
         private void NotifyPropertyChanged(string name)
