@@ -46,17 +46,25 @@ namespace AudioPlayer
             MainCommand = new RelayCommand(pausePlay);
             NextSongCommand = new RelayCommand(nextSong);
             PrevSongCommand = new RelayCommand(previousSong);
-            UpdatePositionCommand = new RelayCommand(updatePosition);
-            PauseUpdateCommand = new RelayCommand(pauseUpdate);
-            ResumeUpdateCommand = new RelayCommand(resumeUpdate);
+            //UpdatePositionCommand = new RelayCommand(updatePosition);
+            //PauseUpdateCommand = new RelayCommand(pauseUpdate);
+            //ResumeUpdateCommand = new RelayCommand(resumeUpdate);
             ShuffleSongsCommand = new RelayCommand(shuffleSongs);
             MouseDownCommand = new RelayCommand(mouseDown);
             MouseUpCommand = new RelayCommand(mouseUp);
             SelectSongCommand = new ParameterRelayCommand<Song>(selectSong);
             DeleteSongCommand = new ParameterRelayCommand<Song>(deleteSong);
             //string currDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            List<string> fajlovi = Directory.GetFiles("C:\\Users\\Lenovo PC\\source\\repos\\AudioPlayer\\AudioPlayer\\bin\\Debug\\net6.0-windows").ToList();
-            if (fajlovi.Any(s => s.EndsWith("plejer.json")))
+            List<string>? fajlovi=null;
+            try
+            {
+                fajlovi = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\source\\repos\\AudioPlayer\\AudioPlayer\\bin\\Debug\\net6.0-windows").ToList();
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+            if (fajlovi!=null && fajlovi.Any(s => s.EndsWith("plejer.json")))
             {
                 string content = File.ReadAllText("plejer.json");
                 MusicPlayerService? deserializedPlayer = JsonSerializer.Deserialize<MusicPlayerService>(content);
@@ -69,7 +77,7 @@ namespace AudioPlayer
                     if (deserializedPlayer.SelectedSong != null)
                     {
                         Song? temp = deserializedPlayer.List.ToList().Find(s => s.IsPlaying == true);
-                        if(temp is not null)
+                        if(temp is not null && File.Exists(temp.SongPath))
                         {
                             deserializedPlayer.SelectedSong = null;
                             deserializedPlayer.Open(temp);
@@ -160,11 +168,7 @@ namespace AudioPlayer
             Songs = songs;
         }
 
-        private void stopService()
-        {
-            Service.Stop();
-        }
-
+        
         private void serialize()
         {
             var obj = JsonSerializer.Serialize(Service);
