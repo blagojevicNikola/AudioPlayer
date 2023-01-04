@@ -32,9 +32,6 @@ namespace AudioPlayer
         public ICommand MainCommand { get; set; }
         public ICommand NextSongCommand { get; set; }
         public ICommand PrevSongCommand { get; set; }
-        public ICommand UpdatePositionCommand { get; set; }
-        public ICommand PauseUpdateCommand { get; set; }
-        public ICommand ResumeUpdateCommand { get; set; }
         public ICommand ShuffleSongsCommand { get; set; }
         public ICommand MouseDownCommand { get; set; }
         public ICommand MouseUpCommand { get; set; }
@@ -46,9 +43,6 @@ namespace AudioPlayer
             MainCommand = new RelayCommand(pausePlay);
             NextSongCommand = new RelayCommand(nextSong);
             PrevSongCommand = new RelayCommand(previousSong);
-            //UpdatePositionCommand = new RelayCommand(updatePosition);
-            //PauseUpdateCommand = new RelayCommand(pauseUpdate);
-            //ResumeUpdateCommand = new RelayCommand(resumeUpdate);
             ShuffleSongsCommand = new RelayCommand(shuffleSongs);
             MouseDownCommand = new RelayCommand(mouseDown);
             MouseUpCommand = new RelayCommand(mouseUp);
@@ -82,7 +76,6 @@ namespace AudioPlayer
                             deserializedPlayer.SelectedSong = null;
                             deserializedPlayer.Open(temp);
                         }
-                        Service = deserializedPlayer;
                     }
                     _service = deserializedPlayer;
                     foreach (Song s in Service.List)
@@ -90,6 +83,7 @@ namespace AudioPlayer
                         Songs.Add(s);
                     }
                 }
+                _service = new MusicPlayerService();
             }
             else
             {
@@ -128,11 +122,6 @@ namespace AudioPlayer
 
         }
 
-        private void updatePosition()
-        {
-            Service.UpdatePosition();
-            Debug.WriteLine("Update Position");
-        }
         private void nextSong()
         {
             Service.PlayNext();
@@ -141,20 +130,6 @@ namespace AudioPlayer
         private void previousSong()
         {
             Service.PlayPrevious();
-        }
-
-        private void pauseUpdate()
-        {
-            Service.PuseUpdate();
-            Debug.WriteLine("Pause Position");
-
-        }
-
-        private void resumeUpdate()
-        {
-            Service.ResumeUpdate();
-            Debug.WriteLine("Resume Position");
-
         }
 
         private void shuffleSongs()
@@ -167,8 +142,7 @@ namespace AudioPlayer
             }
             Songs = songs;
         }
-
-        
+     
         private void serialize()
         {
             var obj = JsonSerializer.Serialize(Service);
