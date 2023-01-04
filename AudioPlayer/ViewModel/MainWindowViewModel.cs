@@ -55,7 +55,7 @@ namespace AudioPlayer
             SelectSongCommand = new ParameterRelayCommand<Song>(selectSong);
             DeleteSongCommand = new ParameterRelayCommand<Song>(deleteSong);
             //string currDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            List<string> fajlovi = Directory.GetFiles("C:\\Users\\nikol\\source\\repos\\AudioPlayer\\AudioPlayer\\bin\\Debug\\net6.0-windows").ToList();
+            List<string> fajlovi = Directory.GetFiles("C:\\Users\\Lenovo PC\\source\\repos\\AudioPlayer\\AudioPlayer\\bin\\Debug\\net6.0-windows").ToList();
             if (fajlovi.Any(s => s.EndsWith("plejer.json")))
             {
                 string content = File.ReadAllText("plejer.json");

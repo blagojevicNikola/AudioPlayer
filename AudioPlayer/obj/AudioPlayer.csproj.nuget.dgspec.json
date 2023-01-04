@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nikol\\source\\repos\\AudioPlayer\\AudioPlayer\\AudioPlayer.csproj": {}
+    "C:\\Users\\Lenovo PC\\source\\repos\\AudioPlayer\\AudioPlayer\\AudioPlayer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nikol\\source\\repos\\AudioPlayer\\AudioPlayer\\AudioPlayer.csproj": {
+    "C:\\Users\\Lenovo PC\\source\\repos\\AudioPlayer\\AudioPlayer\\AudioPlayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nikol\\source\\repos\\AudioPlayer\\AudioPlayer\\AudioPlayer.csproj",
+        "projectUniqueName": "C:\\Users\\Lenovo PC\\source\\repos\\AudioPlayer\\AudioPlayer\\AudioPlayer.csproj",
         "projectName": "AudioPlayer",
-        "projectPath": "C:\\Users\\nikol\\source\\repos\\AudioPlayer\\AudioPlayer\\AudioPlayer.csproj",
-        "packagesPath": "C:\\Users\\nikol\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nikol\\source\\repos\\AudioPlayer\\AudioPlayer\\obj\\",
+        "projectPath": "C:\\Users\\Lenovo PC\\source\\repos\\AudioPlayer\\AudioPlayer\\AudioPlayer.csproj",
+        "packagesPath": "C:\\Users\\Lenovo PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lenovo PC\\source\\repos\\AudioPlayer\\AudioPlayer\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\nikol\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Lenovo PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -80,7 +76,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\obj\Debug\net6.0-windows\
+C:\Users\Lenovo PC\source\repos\AudioPlayer\AudioPlayer\obj\Debug\net6.0-windows\
 AudioPlayer
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\nikol\source\repos\AudioPlayer\AudioPlayer\App.xaml
+C:\Users\Lenovo PC\source\repos\AudioPlayer\AudioPlayer\App.xaml
 41916576859
 
 14-1269980086
-2131633689059
+2132120382863
 MainWindow.xaml;Resources\Styles.xaml;View\AddSongWindow.xaml;View\CustomSlider.xaml;
 
-False
+True
 

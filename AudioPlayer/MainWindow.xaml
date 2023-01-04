@@ -7,6 +7,7 @@
         xmlns:iconsPack="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:view="clr-namespace:AudioPlayer.View"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="750" Width="1200">
     <Window.DataContext>
         <local:MainWindowViewModel/>
