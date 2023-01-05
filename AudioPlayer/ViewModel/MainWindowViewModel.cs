@@ -71,8 +71,9 @@ namespace AudioPlayer
                     if (deserializedPlayer.SelectedSong != null)
                     {
                         Song? temp = deserializedPlayer.List.ToList().Find(s => s.IsPlaying == true);
-                        if(temp is not null && File.Exists(temp.SongPath))
+                        if(temp is not null)
                         {
+                            Debug.WriteLine("Test");
                             deserializedPlayer.SelectedSong = null;
                             deserializedPlayer.Open(temp);
                         }
@@ -83,7 +84,6 @@ namespace AudioPlayer
                         Songs.Add(s);
                     }
                 }
-                _service = new MusicPlayerService();
             }
             else
             {
@@ -104,6 +104,10 @@ namespace AudioPlayer
                 Song s = new Song(vm.SongPath, vm.SongName, vm.PlayerName);
                 Songs.Add(s);
                 Service.List.Add(s);
+                if(Service.SelectedSong!=null)
+                {
+                    Service.SetNextPrevAvailability(Service.SelectedSong);
+                }
                 win.Close(); 
             };
             win.Show();

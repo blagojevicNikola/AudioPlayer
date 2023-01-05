@@ -28,11 +28,14 @@ namespace AudioPlayer
         private double _maximumValue = 0;
         private DispatcherTimer _timer;
         private bool _isActive = false;
+        private bool _previousExists = true;
+        private bool _nextExists = true;
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public List<Song> List { get; set; } = new List<Song>();
         public bool IsBeingDragged { get; set; }
-
+        public bool PreviousExists { get { return _previousExists; } set { _previousExists = value; NotifyPropertyChanged("PreviousExists"); } }
+        public bool NextExists { get { return _nextExists; } set { _nextExists = value; NotifyPropertyChanged("NextExists"); } }
         public Song? SelectedSong { get { return _selectedSong; } set { _selectedSong = value; NotifyPropertyChanged("SelectedSong"); } }
         public float Volume { get { return outputDevice.Volume; } set { outputDevice.Volume = value; NotifyPropertyChanged("Volume"); } }
         [JsonIgnore]
@@ -65,25 +68,6 @@ namespace AudioPlayer
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(0.2);
             _timer.Tick += (sender, a) => updateTimeAndSlider();
-        }
-
-        public double GetVolume()
-        {
-            return outputDevice.Volume;
-        }
-
-        public TimeSpan GetPosition()
-        {
-            if(audioFile is null)  
-                return TimeSpan.Zero;
-            return audioFile.CurrentTime;
-        }
-
-        public TimeSpan GetFullDuration()
-        {
-            if (audioFile is null)
-                return TimeSpan.Zero;
-            return audioFile.TotalTime;
         }
 
         public void Play()
@@ -144,6 +128,7 @@ namespace AudioPlayer
                 }
                 SelectedSong.IsPlaying = false;
             }
+            SetNextPrevAvailability(song);
             SelectedSong = song;
             outputDevice.Stop();
             _timer.Stop();
@@ -200,8 +185,14 @@ namespace AudioPlayer
                 EndValueString = "00:00";
                 CurrentValueString = "00:00";
                 CurrentValue = 0;
+                PreviousExists= false;
+                NextExists= false;
             }
             List.Remove(song);
+            if(SelectedSong!= null) 
+            {
+                SetNextPrevAvailability(SelectedSong);
+            }
         }
 
         public void UpdatePosition()
@@ -212,19 +203,13 @@ namespace AudioPlayer
             }
         }
 
-        public void PuseUpdate()
-        {
-            _timer.Stop();
-        }
-
-        public void ResumeUpdate()
-        {
-            _timer.Start();
-        }
-
         public void ShuffleSongList()
         {
             List = List.OrderBy(s => Guid.NewGuid()).ToList();
+            if (SelectedSong != null)
+            {
+                SetNextPrevAvailability(SelectedSong);
+            }
         }
         private void updateTimeAndSlider()
         {
@@ -249,6 +234,30 @@ namespace AudioPlayer
             {
                 _timer.Stop();
                 PlayNext();
+            }
+        }
+
+        public void SetNextPrevAvailability(Song song)
+        {
+            if (List.IndexOf(song) > 0 && List.IndexOf(song) < List.Count - 1)
+            {
+                PreviousExists = true;
+                NextExists = true;
+            }
+            else
+            {
+                if (List.IndexOf(song) == 0)
+                    PreviousExists = false;
+                else
+                {
+                    PreviousExists = true;
+                }
+                if (List.IndexOf(song) == List.Count - 1)
+                    NextExists = false;
+                else
+                {
+                    NextExists = true;
+                }
             }
         }
 

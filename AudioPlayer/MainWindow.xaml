@@ -135,6 +135,7 @@
                             HorizontalAlignment="Center">
                             <Button Style="{StaticResource NextPrevSongButtonStyle}"
                                 Margin="0,0,10,0"
+                                IsEnabled="{Binding Service.PreviousExists}"
                                 Command="{Binding PrevSongCommand}">
                                 <!--<fa:ImageAwesome Icon="AngleLeft" 
                                          Height="23" 
@@ -149,6 +150,7 @@
                             </Button>
                             <Button Style="{StaticResource NextPrevSongButtonStyle}"
                                 Margin="10,0,0,0"
+                                IsEnabled="{Binding Service.NextExists}"
                                 Command="{Binding NextSongCommand}">
                                 <!--<fa:ImageAwesome Icon="AngleRight" 
                                          Height="23" 
