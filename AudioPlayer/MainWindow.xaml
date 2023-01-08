@@ -142,7 +142,7 @@
                                          Width="23" 
                                          Foreground="White"
                                          Margin="0,0,8,0"/>-->
-                                <iconsPack:PackIconMaterial Kind="ChevronDoubleLeft" 
+                                <iconsPack:PackIconMaterial Kind="SkipPrevious" 
                                                         Width="40" 
                                                         Height="23" 
                                                         Foreground="{StaticResource TextColor}"
@@ -157,7 +157,7 @@
                                          Width="23" 
                                          Foreground="White"
                                          Margin="8,0,0,0"/>-->
-                                <iconsPack:PackIconMaterial Kind="ChevronDoubleRight" 
+                                <iconsPack:PackIconMaterial Kind="SkipNext" 
                                                         Width="40" 
                                                         Height="23" 
                                                         Foreground="{StaticResource TextColor}"
@@ -167,7 +167,8 @@
 
                         <ToggleButton HorizontalAlignment="Center"
                             Command="{Binding MainCommand}"
-                        Style="{StaticResource PlaySongButtonStyle}">
+                            IsEnabled="{Binding Service.HasSongs}"
+                            Style="{StaticResource PlaySongButtonStyle}">
                             <!--<fa:ImageAwesome Icon="Play" Height="30" Width="30" Foreground="White"
                                      HorizontalAlignment="Center"
                                      Margin="4,2,0,0"/>-->

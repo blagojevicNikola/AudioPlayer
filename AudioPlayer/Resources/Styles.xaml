@@ -62,6 +62,9 @@
         </Setter>
 
         <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#c9b463"/>
+            </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource HoveredPlayButtonColor}"/>
             </Trigger>
@@ -99,6 +102,9 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource HoveredNextPrevButtonColor}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#c4b16a"/>
             </Trigger>
         </Style.Triggers>
     </Style>

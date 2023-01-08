@@ -97,13 +97,14 @@ namespace AudioPlayer
 
         private void addSong()
         {
-            AddSongWindowViewModel vm = new AddSongWindowViewModel();
+            AddSongWindowViewModel vm = new AddSongWindowViewModel(Songs);
             AddSongWindow win = new AddSongWindow();
             win.DataContext = vm;   
             vm.OnCloseRequest += (a, b) => {
                 Song s = new Song(vm.SongPath, vm.SongName, vm.PlayerName);
                 Songs.Add(s);
                 Service.List.Add(s);
+                Service.HasSongs = true;
                 if(Service.SelectedSong!=null)
                 {
                     Service.SetNextPrevAvailability(Service.SelectedSong);

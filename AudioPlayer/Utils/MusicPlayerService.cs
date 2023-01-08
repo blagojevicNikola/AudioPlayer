@@ -30,12 +30,14 @@ namespace AudioPlayer
         private bool _isActive = false;
         private bool _previousExists = true;
         private bool _nextExists = true;
+        private bool _hasSongs = false;
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public List<Song> List { get; set; } = new List<Song>();
         public bool IsBeingDragged { get; set; }
         public bool PreviousExists { get { return _previousExists; } set { _previousExists = value; NotifyPropertyChanged("PreviousExists"); } }
         public bool NextExists { get { return _nextExists; } set { _nextExists = value; NotifyPropertyChanged("NextExists"); } }
+        public bool HasSongs { get { return _hasSongs; } set { _hasSongs = value; NotifyPropertyChanged("HasSongs"); } }
         public Song? SelectedSong { get { return _selectedSong; } set { _selectedSong = value; NotifyPropertyChanged("SelectedSong"); } }
         public float Volume { get { return outputDevice.Volume; } set { outputDevice.Volume = value; NotifyPropertyChanged("Volume"); } }
         [JsonIgnore]
@@ -192,6 +194,10 @@ namespace AudioPlayer
             if(SelectedSong!= null) 
             {
                 SetNextPrevAvailability(SelectedSong);
+            }
+            if(List.Count<1)
+            {
+                HasSongs = false;
             }
         }
 
