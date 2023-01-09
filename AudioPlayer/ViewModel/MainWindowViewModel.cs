@@ -104,7 +104,6 @@ namespace AudioPlayer
                 Song s = new Song(vm.SongPath, vm.SongName, vm.PlayerName);
                 Songs.Add(s);
                 Service.List.Add(s);
-                Service.HasSongs = true;
                 if(Service.SelectedSong!=null)
                 {
                     Service.SetNextPrevAvailability(Service.SelectedSong);

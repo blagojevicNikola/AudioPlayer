@@ -61,7 +61,7 @@ namespace AudioPlayer
                 OnCloseRequest(this, EventArgs.Empty);
             } else
             {
-                MessageBox.Show("Cannot add the song to the playlist!");
+                MessageBox.Show("Cannot add the song to the playlist!","Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
 
         }

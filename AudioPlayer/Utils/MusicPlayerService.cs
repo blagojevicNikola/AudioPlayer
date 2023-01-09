@@ -28,8 +28,8 @@ namespace AudioPlayer
         private double _maximumValue = 0;
         private DispatcherTimer _timer;
         private bool _isActive = false;
-        private bool _previousExists = true;
-        private bool _nextExists = true;
+        private bool _previousExists = false;
+        private bool _nextExists = false;
         private bool _hasSongs = false;
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -129,6 +129,10 @@ namespace AudioPlayer
                     return;
                 }
                 SelectedSong.IsPlaying = false;
+            }
+            else
+            {
+                HasSongs = true;
             }
             SetNextPrevAvailability(song);
             SelectedSong = song;

@@ -8,7 +8,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:view="clr-namespace:AudioPlayer.View"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="750" Width="1200">
+        Title="AudioPlayer" Height="750" Width="1200">
     <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>
@@ -20,7 +20,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="232"/>
+            <ColumnDefinition Width="0.26*"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
