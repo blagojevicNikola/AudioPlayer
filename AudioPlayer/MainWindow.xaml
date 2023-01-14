@@ -249,10 +249,10 @@
                             Margin="0,0,5,0">
                         <iconsPack:PackIconMaterial Kind="Shuffle" Width="14" Height="14" Foreground="{StaticResource TextColor}"/>
                     </Button>
-                    <Button Style="{StaticResource OptionsButtonStyle}"
+                    <!--<Button Style="{StaticResource OptionsButtonStyle}"
                             Margin="5,0,0,0">
                         <iconsPack:PackIconMaterial Kind="Timer" Width="14" Height="14" Foreground="{StaticResource TextColor}"/>
-                    </Button>
+                    </Button>-->
                 </StackPanel>
             </Grid>
         </Grid>

@@ -193,6 +193,7 @@ namespace AudioPlayer
                 CurrentValue = 0;
                 PreviousExists= false;
                 NextExists= false;
+                HasSongs = false;
             }
             List.Remove(song);
             if(SelectedSong!= null) 
