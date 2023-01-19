@@ -78,3 +78,4 @@ C:\Users\Lenovo PC\source\repos\AudioPlayer\AudioPlayer\obj\Debug\net6.0-windows
 C:\Users\Lenovo PC\source\repos\AudioPlayer\AudioPlayer\obj\Debug\net6.0-windows\AudioPlayer.pdb
 C:\Users\Lenovo PC\source\repos\AudioPlayer\AudioPlayer\obj\Debug\net6.0-windows\AudioPlayer.genruntimeconfig.cache
 C:\Users\Lenovo PC\source\repos\AudioPlayer\AudioPlayer\obj\Debug\net6.0-windows\ref\AudioPlayer.dll
+C:\Users\Lenovo PC\source\repos\AudioPlayer\AudioPlayer\obj\Debug\net6.0-windows\AudioPlayer_Content.g.cs

@@ -73,7 +73,6 @@ namespace AudioPlayer
                         Song? temp = deserializedPlayer.List.ToList().Find(s => s.IsPlaying == true);
                         if(temp is not null)
                         {
-                            Debug.WriteLine("Test");
                             deserializedPlayer.SelectedSong = null;
                             deserializedPlayer.Open(temp);
                         }
